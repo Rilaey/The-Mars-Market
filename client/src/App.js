@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Profile from "./pages/Profile";
 import NoPageFound from "./pages/NoPageFound";
 import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<NoPageFound />} />
         <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
       </div> 
     </BrowserRouter>
