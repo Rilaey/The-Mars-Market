@@ -23,5 +23,10 @@
   "homepage": "https://github.com/Rilaey/Project-3#readme",
   "devDependencies": {
     "concurrently": "^7.6.0"
+  },
+  "dependencies": {
+    "daisyui": "^2.51.3",
+    "i": "^0.3.7",
+    "npm": "^9.6.1"
   }
 }
