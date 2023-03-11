@@ -9,12 +9,14 @@ function App() {
   return (
     <BrowserRouter>
     <Header/>
+    <div className="pt-[50px]">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<NoPageFound />} />
         <Route path="/signin" element={<SignIn />} />
       </Routes>
+      </div> 
     </BrowserRouter>
   );
 }
