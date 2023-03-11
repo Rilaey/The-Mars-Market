@@ -17,7 +17,7 @@ const postSchema = new Schema({
     required: "Post Must Have Price!"
   },
   // need to figure how images work
-  image: {
+  postImgs: {
     data: Buffer,
     contentType: String
   },
