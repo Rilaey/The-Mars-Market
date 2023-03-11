@@ -16,8 +16,11 @@ const postSchema = new Schema({
     type: Number,
     required: "Post Must Have Price!"
   },
-  // need to figure how images
-  image: {},
+  // need to figure how images work
+  image: {
+    data: Buffer,
+    contentType: String
+  },
   createdAt: {
     type: Date,
     default: Date.now,
