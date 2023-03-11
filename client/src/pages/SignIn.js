@@ -18,7 +18,7 @@ export default function SignIn() {
               </label>
               <input type="text" placeholder="password" className="input input-bordered" />
               <label className="label">
-                <a href="#" className="label-text-alt link link-hover">Create an account</a>
+                <a href="/signup" className="label-text-alt link link-hover">Create an account</a>
               </label>
             </div>
             <div className="form-control mt-6">
