@@ -4,7 +4,7 @@ import glub from "../assets/glub.png";
 function Header() {
     const navigate = useNavigate();
     return (
-        <div className="navbar bg-base-100 ">
+        <div className="navbar bg-base-100 fixed">
             <div className="flex-1">
                 <a href="/" className="btn btn-ghost normal-case text-xl">Project 3</a>
             </div>
