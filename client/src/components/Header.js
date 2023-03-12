@@ -4,9 +4,9 @@ import glub from "../assets/glub.png";
 function Header() {
     const navigate = useNavigate();
     return (
-        <div className="navbar bg-base-100 fixed">
+        <div className="navbar bg-base-100 fixed z-10">
             <div className="flex-1">
-                <a href="/" className="btn btn-ghost normal-case text-xl">Project 3</a>
+                <a href="/" className="btn btn-ghost normal-case text-xl">Marketplace</a>
             </div>
             <div className="flex-none gap-3">
                 <div className="form-control hidden sm:flex">
@@ -30,7 +30,7 @@ function Header() {
                     </label>
                     <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
                         <li>
-                            <a className="justify-between">
+                            <a href="/profile" className="justify-between">
                                 Profile
                                 <span className="badge">New</span>
                             </a>
