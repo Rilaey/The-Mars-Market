@@ -1,48 +1,47 @@
 const express = require("express");
-require('dotenv').config()
+require("dotenv").config();
 const { ApolloServer } = require("apollo-server-express");
 const path = require("path");
-const db = require('./config/connection');
-
+const db = require("./config/connection");
 
 // NEED TO IMPLEMENT GRAPHQL THINGS
-// const { authMiddleware } = require('./utils/auth');
-const { typeDefs, resolvers } = require('./schemas');
+const { authMiddleware } = require("./utils/auth");
+const { typeDefs, resolvers } = require("./schemas");
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT;
 const app = express();
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  // context: authMiddleware
+  context: authMiddleware
 });
 
 // multiple image uploading for posts
-const multer = require('multer');
-const bodyParser = require('body-parser')
-const postImage = require('./models/Post');
+const multer = require("multer");
+const bodyParser = require("body-parser");
+const postImage = require("./models/Post");
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 const postStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'post-uploads')
+    cb(null, "post-uploads");
   },
   filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-    cb(null, file.fieldname + '-' + uniqueSuffix)
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, file.fieldname + "-" + uniqueSuffix);
   }
-})
+});
 
 const postUpload = multer({
   storage: postStorage
-}).array('postImgs', 6);
+}).array("postImgs", 6);
 
-app.post('/postUpload', (req, res) => {
+app.post("/postUpload", (req, res) => {
   postUpload(req, res, (err) => {
-    if(err) {
-      console.log(err)
+    if (err) {
+      console.log(err);
     } else {
       const postImgs = new postImage({
         // do i need to add tags and comments fields?
@@ -51,41 +50,42 @@ app.post('/postUpload', (req, res) => {
         price: req.body.price,
         postImgs: {
           data: req.files.filename,
-          contentType: 'postImgs'
+          contentType: "postImgs"
         }
-      })
-      postImgs.save()
+      });
+      postImgs
+        .save()
         .then(() => {
-          res.send(postImgs)
+          res.send(postImgs);
         })
         .catch((err) => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     }
-  })
-})
+  });
+});
 
 // single image uploading for profile picture
-const userImage = require('./models/User');
+const userImage = require("./models/User");
 
 const userStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'profile-pictures')
+    cb(null, "profile-pictures");
   },
   filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-    cb(null, file.fieldname + '-' + uniqueSuffix)
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, file.fieldname + "-" + uniqueSuffix);
   }
 });
 
 const profileUpload = multer({
   storage: userStorage
-}).single('profilePicture');
+}).single("profilePicture");
 
-app.post('/profileUpload', (req, res) => {
+app.post("/profileUpload", (req, res) => {
   profileUpload(req, res, (err) => {
-    if(err) {
-      console.log(err)
+    if (err) {
+      console.log(err);
     } else {
       const profilePicture = new userImage({
         // do i need to add tags and comments fields?
@@ -96,20 +96,20 @@ app.post('/profileUpload', (req, res) => {
         username: req.body.username,
         profilePicture: {
           data: req.file.filename,
-          contentType: 'profilePicture'
+          contentType: "profilePicture"
         }
-      })
-      profilePicture.save()
+      });
+      profilePicture
+        .save()
         .then(() => {
-          res.send(profilePicture)
+          res.send(profilePicture);
         })
         .catch((err) => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     }
-  })
-})
-
+  });
+});
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
