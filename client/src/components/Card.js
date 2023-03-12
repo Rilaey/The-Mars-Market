@@ -14,8 +14,8 @@ export default function Card(props) {
             <div className="card-body">
                 <div className="flex justify-between">
                     <h2 className="card-title">{props.title}</h2>
-                    <p>{props.price}</p>
                 </div>
+                <p>${props.price}</p>
                 <p>{props.description}</p>
                 <div className="card-actions justify-end">
                     {location.pathname.includes("profile") ? <button className="btn btn-primary">Edit</button> : <button className="btn btn-primary">Buy Now!</button>}
