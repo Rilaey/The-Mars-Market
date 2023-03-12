@@ -12,17 +12,18 @@ const typeDefs = gql`
     email: String!
     password: String!
     username: String!
+    phoneNumber: String!
     profilePicture: ProfilePicture
     createdAt: Date!
     posts: [Post!]
     comments: [Comment!]
   }
-  
+
   type ProfilePicture {
     data: String!
     contentType: String!
   }
-  
+
   type Post {
     id: ID!
     title: String!
@@ -34,12 +35,12 @@ const typeDefs = gql`
     comments: [Comment]!
     user: User!
   }
-  
+
   type Image {
     data: String!
     contentType: String!
   }
-  
+
   type Comment {
     id: ID!
     commentText: String!
@@ -64,20 +65,21 @@ const typeDefs = gql`
     message: String
     tag: Tag
   }
-  
+
   input UserInput {
     firstName: String!
     lastName: String!
     email: String!
     password: String!
     username: String!
+    phoneNumber: String!
   }
-  
+
   input ProfilePictureInput {
     data: String!
     contentType: String!
   }
-  
+
   type Query {
     user(id: ID!): User
     users: [User!]
@@ -88,7 +90,7 @@ const typeDefs = gql`
     getComment(id: ID!): Comment
   getAllComments: [Comment]
   }
-  
+
   type Mutation {
     createUser(input: UserInput!): User!
     updateUser(id: ID!, input: UserInput!): User!
