@@ -4,7 +4,6 @@ const { gql } = require('apollo-server-express');
 const typeDefs = gql`
 
   scalar Date
-  scalar USCurrency
 
   type User {
     id: ID!
@@ -51,7 +50,7 @@ const typeDefs = gql`
 
   type Tag {
     _id: ID!
-    tagname: String!
+    tagName: String!
     posts: [Post]!
   }
 

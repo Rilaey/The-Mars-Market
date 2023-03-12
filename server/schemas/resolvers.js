@@ -1,6 +1,5 @@
-const { Tech, Matchup } = require('../models');
+const { User, Post, Tag } = require('../models');
 const {GraphQLScalarType, Kind} = require('graphql');
-const {USCurrency} = require('graphql-currency-scalars');
 
 const resolvers = {
   Date: new GraphQLScalarType({
@@ -27,13 +26,12 @@ const resolvers = {
       return null;
     },
   }),
-  USCurrency,
   Query: {
     user: async (parent, { id }) => {
       return await User.findById(id).populate('posts').populate('comments');
     },
     users: async () => {
-      return await User.find().populate('posts').populate('comments');
+      return await User.find();
     },
     getTagById: async (parent, { tagId }) => {
       const tag = await Tag.findById(tagId);
