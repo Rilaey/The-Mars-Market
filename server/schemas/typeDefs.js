@@ -1,27 +1,109 @@
 const { gql } = require('apollo-server-express');
 
+
 const typeDefs = gql`
-  type Tech {
-    _id: ID!
-    name: String!
+
+  scalar Date
+  scalar USCurrency
+
+  type User {
+    id: ID!
+    firstName: String!
+    lastName: String!
+    email: String!
+    password: String!
+    username: String!
+    profilePicture: ProfilePicture
+    createdAt: Date!
+    posts: [Post!]
+    comments: [Comment!]
+  }
+  
+  type ProfilePicture {
+    data: String!
+    contentType: String!
+  }
+  
+  type Post {
+    id: ID!
+    title: String!
+    description: String!
+    price: Float!
+    postImgs: [Image]
+    createdAt: String!
+    tags: [Tag]!
+    comments: [Comment]!
+    user: User!
+  }
+  
+  type Image {
+    data: String!
+    contentType: String!
+  }
+  
+  type Comment {
+    id: ID!
+    commentText: String!
+    commentAuthor: User!
+    createdAt: Date!
+    post: Post!
   }
 
-  type Matchup {
+  type Tag {
     _id: ID!
-    tech1: String!
-    tech2: String!
-    tech1_votes: Int
-    tech2_votes: Int
+    tagname: String!
+    posts: [Post]!
   }
 
+  type DeleteTagResponse {
+    success: Boolean!
+    message: String
+  }
+
+  type UpdateTagResponse {
+    success: Boolean!
+    message: String
+    tag: Tag
+  }
+  
+  input UserInput {
+    firstName: String!
+    lastName: String!
+    email: String!
+    password: String!
+    username: String!
+  }
+  
+  input ProfilePictureInput {
+    data: String!
+    contentType: String!
+  }
+  
   type Query {
-    tech: [Tech]
-    matchups(_id: String): [Matchup]
+    user(id: ID!): User
+    users: [User!]
+    posts: [Post!]!
+    post(id: ID!): Post
+    getTagById(tagId: ID!): Tag
+    getAllTags: [Tag!]!
+    getComment(id: ID!): Comment
+  getAllComments: [Comment]
   }
-
+  
   type Mutation {
-    createMatchup(tech1: String!, tech2: String!): Matchup
-    createVote(_id: String!, techNum: Int!): Matchup
+    createUser(input: UserInput!): User!
+    updateUser(id: ID!, input: UserInput!): User!
+    deleteUser(id: ID!): User!
+    addProfilePicture(id: ID!, input: ProfilePictureInput!): User!
+    createPost(title: String!, description: String!, price: Float!, tags: [ID!]): Post!
+    updatePost(id: ID!, title: String, description: String, price: Float, tags: [ID!]): Post
+    deletePost(id: ID!): Post
+    createTag(tagname: String!): Tag
+    deleteTag(tagId: ID!): DeleteTagResponse!
+    updateTag(tagId: ID!, tagname: String!): UpdateTagResponse!
+    createComment(commentText: String!, postId: ID!): Comment
+    deleteComment(id: ID!): Comment
+    updateComment(id: ID!, commentText: String!): Comment
   }
 `;
 
