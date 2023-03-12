@@ -6,7 +6,7 @@ const db = require('./config/connection');
 
 
 // NEED TO IMPLEMENT GRAPHQL THINGS
-// const { authMiddleware } = require('./utils/auth');
+//const { authMiddleware } = require('./utils/auth');
 const { typeDefs, resolvers } = require('./schemas');
 
 const PORT = process.env.PORT
