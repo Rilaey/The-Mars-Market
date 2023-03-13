@@ -42,11 +42,16 @@ const resolvers = {
       return tags;
     },
     posts: async () => {
-      const posts = await Post.find();
-      return posts;
+      try {
+        const posts = await Post.find().populate('user');
+        return posts;
+      } catch (err) {
+        console.log(err);
+      }
+
     },
     post: async (parent, { id }) => {
-      const post = await Post.findById(id);
+      const post = await Post.findById(id).populate('user');
       return post;
     },
     getComment: async (_, { id }) => {
@@ -253,8 +258,8 @@ const resolvers = {
     },
   },
   Post: {
-    user: async (parent) => {
-      return await User.findById(parent.id);
+    user: async (post) => {
+      return await User.findById(post.user);
     },
     comments: async (parent) => {
       return await Comment.find({ post: parent.id });

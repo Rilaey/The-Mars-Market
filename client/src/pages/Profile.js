@@ -11,7 +11,7 @@ import { QUERY_USER } from '../utils/queries';
 
 export default function Profile() {
   const { loading, data } = useQuery(QUERY_USER, {
-    variables: { id: "640d61f015ce1b8438c66bd8"},
+    variables: { id: "640e3344447da0e45326361c"},
   });
 
   const user = data?.user || {};
@@ -27,7 +27,7 @@ export default function Profile() {
                 <div className="divider"></div>
                 <div className="pb-2 flex items-center"><BsPersonCircle className='mr-[8px] text-[20px]' />{user?.username}</div>
                 <p className="py-2 flex items-center"><AiOutlineMail className='mr-[8px] text-[20px]' />{user?.email}</p>
-                <p className="py-2 flex items-center"><HiPhone className='mr-[8px] text-[20px]' /> (786)-233-2222</p>
+                <p className="py-2 flex items-center"><HiPhone className='mr-[8px] text-[20px]' /> {user?.phoneNumber}</p>
                 <button className="my-2 btn btn-primary">New Post</button>
                 <button className="my-2 mx-2 btn btn-primary">Edit Profile</button>
               </div>
