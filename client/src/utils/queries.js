@@ -1,6 +1,5 @@
 import { gql } from '@apollo/client';
 
-// PHONE NUMBER
 export const QUERY_USER = gql`
   query user($id: ID!) {
     user(_id: $id) {
@@ -12,6 +11,14 @@ export const QUERY_USER = gql`
     }
   }
 `;
+
+export const QUERY_ALL_TAGS = gql`
+query getAllTags {
+  getAllTags {
+    tagName
+  }
+}
+`
 
 export const QUERY_POST = gql`
   query post($id: ID!) {
@@ -27,7 +34,6 @@ export const QUERY_POST = gql`
     }
   }
 `;
-
 
 export const QUERY_POSTS = gql`
   query posts {

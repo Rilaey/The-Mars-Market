@@ -48,10 +48,9 @@ app.post("/postUpload", (req, res) => {
         title: req.body.title,
         description: req.body.description,
         price: req.body.price,
-        postImgs: {
-          data: req.files.filename,
-          contentType: "postImgs"
-        }
+        postImgs: req.files.map((file) => {
+          return file.originalname
+        })
       });
       postImgs
         .save()
@@ -113,6 +112,8 @@ app.post("/profileUpload", (req, res) => {
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'post-uploads')))
+console.log(__dirname)
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/build")));
