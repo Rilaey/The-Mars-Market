@@ -6,7 +6,7 @@ const typeDefs = gql`
   scalar Date
 
   type User {
-    id: ID!
+    _id: ID!
     firstName: String!
     lastName: String!
     email: String!
@@ -25,7 +25,7 @@ const typeDefs = gql`
   }
 
   type Post {
-    id: ID!
+    _id: ID!
     title: String!
     description: String!
     price: Float!
@@ -33,7 +33,7 @@ const typeDefs = gql`
     createdAt: String!
     tags: [Tag]!
     comments: [Comment]!
-    user: User!
+    user: User
   }
 
   type Image {
@@ -81,9 +81,9 @@ const typeDefs = gql`
   }
 
   type Query {
-    user(id: ID!): User
+    user(_id: ID!): User
     users: [User!]
-    posts: [Post!]!
+    posts: [Post!]
     post(id: ID!): Post
     getTagById(tagId: ID!): Tag
     getAllTags: [Tag!]!
@@ -93,8 +93,8 @@ const typeDefs = gql`
 
   type Mutation {
     createUser(input: UserInput!): User!
-    updateUser(id: ID!, input: UserInput!): User!
-    deleteUser(id: ID!): User!
+    updateUser(_id: ID!, input: UserInput!): User!
+    deleteUser(_id: ID!): User!
     addProfilePicture(id: ID!, input: ProfilePictureInput!): User!
     createPost(title: String!, description: String!, price: Float!, tags: [ID!]): Post!
     updatePost(id: ID!, title: String, description: String, price: Float, tags: [ID!]): Post
