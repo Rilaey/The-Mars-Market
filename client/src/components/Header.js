@@ -1,8 +1,14 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useQuery } from "@apollo/client";
+import { QUERY_ALL_TAGS } from "../utils/queries";
+import { Link } from "react-router-dom";
+import Auth from "../utils/auth";
 import glub from "../assets/glub.png";
 
 function Header() {
+  const { loading, data } = useQuery(QUERY_ALL_TAGS);
+  const tags = data?.getAllTags || [];
+
   const navigate = useNavigate();
   return (
     <div className="navbar bg-base-100 fixed z-10">
@@ -19,7 +25,7 @@ function Header() {
             className="input input-bordered"
           />
         </div>
-        <button className="btn btn-ghost btn-circle flex sm:hidden">
+        <button className="btn btn-ghost btn-circle flex sm:hidden" >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5"
@@ -35,37 +41,46 @@ function Header() {
             />
           </svg>
         </button>
-        <select className="select select-primary max-w-xs hidden sm:flex">
-          <option disabled>Categories</option>
-          <option>Electronics</option>
-          <option>Home</option>
-          <option>Music</option>
-          <option>Vehicles</option>
+        <select className="select select-primary max-w-xs sm:flex overflow-y-scroll">
+          {loading ? (
+            <div>Loading...</div>
+          ) : (
+            tags.map((name) => <option key={tags._id}>{name.tagName}</option>)
+          )}
         </select>
-        <div className="dropdown dropdown-end">
-          <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-            <div className="w-10 rounded-full">
-              <img src={glub} />
-            </div>
-          </label>
-          <ul
-            tabIndex={0}
-            className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
-          >
-            <li>
-              <a href="/profile" className="justify-between">
-                Profile
-                <span className="badge">New</span>
-              </a>
-            </li>
-            <li>
-              <a>Settings</a>
-            </li>
-            <li>
-              <a>Logout</a>
-            </li>
-          </ul>
-        </div>
+
+        {Auth.loggedIn() ? (
+          <div className="dropdown dropdown-end">
+            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+              <div className="w-10 rounded-full">
+                <img src={glub} />
+              </div>
+            </label>
+            <ul
+              tabIndex={0}
+              className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
+            >
+              <li>
+                <Link>
+                  Profile
+                  <span className="badge">New</span>
+                </Link>
+              </li>
+              <li>
+                <Link>Settings</Link>
+              </li>
+              <li>
+                <Link>Logout</Link>
+              </li>
+            </ul>
+          </div>
+        ) : (
+          <>
+            <Link to='/signup'>
+              <button className="btn btn-outline btn-success">Login</button>
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );

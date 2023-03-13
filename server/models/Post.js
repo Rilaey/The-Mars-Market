@@ -18,8 +18,7 @@ const postSchema = new Schema({
   },
   // need to figure how images work
   postImgs: {
-    data: Buffer,
-    contentType: String
+    type: [String]
   },
   createdAt: {
     type: Date,
