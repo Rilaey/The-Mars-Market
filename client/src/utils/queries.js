@@ -15,6 +15,7 @@ export const QUERY_USER = gql`
 export const QUERY_ALL_TAGS = gql`
 query getAllTags {
   getAllTags {
+    _id
     tagName
   }
 }

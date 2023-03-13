@@ -43,9 +43,9 @@ function Header() {
         </button>
         <select className="select select-primary max-w-xs sm:flex overflow-y-scroll">
           {loading ? (
-            <div>Loading...</div>
+            <option>Loading...</option>
           ) : (
-            tags.map((name) => <option key={tags._id}>{name.tagName}</option>)
+            tags.map(name => {return <option key={name._id}>{name.tagName}</option>})
           )}
         </select>
 
@@ -60,16 +60,12 @@ function Header() {
               tabIndex={0}
               className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
             >
-              <li>
+              <li key={"profile-1"}>
                 <Link>
                   Profile
-                  <span className="badge">New</span>
                 </Link>
               </li>
-              <li>
-                <Link>Settings</Link>
-              </li>
-              <li>
+              <li key={"logout-2"}>
                 <Link>Logout</Link>
               </li>
             </ul>
