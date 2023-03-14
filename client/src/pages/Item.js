@@ -28,7 +28,6 @@ export default function Item() {
                 {/* <img src={post?.postImgs[0]} className="max-w-sm rounded-lg shadow-2xl w-[345px]" /> */}
                 <div className="carousel w-full">
                     {post.postImgs.map(function(image, i){
-                        console.log("image" + i, image)
                         if (post.postImgs.length === 1) {
                             return < Slide key={i} index={i} postImg={image} singleImg={true} />
                         }
