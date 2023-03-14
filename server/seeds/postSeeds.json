@@ -3,7 +3,7 @@
         "title": "Selling my Bike!",
         "description": "I have the coolest bike ever. I think you would like to own it. NO LOWBALLS.",
         "price": 1309.32,
-        "postImgs": "https://www.yamahabicycles.com/globalassets/2022-sept-product-launch/global-assets/homepage/crosscore_hero_v3.jpg",
+        "postImgs": ["https://www.yamahabicycles.com/globalassets/2022-sept-product-launch/global-assets/homepage/crosscore_hero_v3.jpg", "https://hips.hearstapps.com/hmg-prod/amv-prod-cad-assets/images/08q1/267367/2008-chevrolet-silverado-and-silverado-hd-photo-193587-s-original.jpg", "https://hips.hearstapps.com/hmg-prod/amv-prod-cad-assets/images/08q1/267367/2008-chevrolet-silverado-and-silverado-hd-photo-193587-s-original.jpg", "https://hips.hearstapps.com/hmg-prod/amv-prod-cad-assets/images/08q1/267367/2008-chevrolet-silverado-and-silverado-hd-photo-193587-s-original.jpg", "https://hips.hearstapps.com/hmg-prod/amv-prod-cad-assets/images/08q1/267367/2008-chevrolet-silverado-and-silverado-hd-photo-193587-s-original.jpg"],
         "tags": [
             {
                 "_id" : "640e3344447da0e453263622"
@@ -15,7 +15,7 @@
         "title": "Selling my 2008 Chevy Silverado",
         "description": "If god could make a car, it would be this one.",
         "price": 25000.00,
-        "postImgs": "https://hips.hearstapps.com/hmg-prod/amv-prod-cad-assets/images/08q1/267367/2008-chevrolet-silverado-and-silverado-hd-photo-193587-s-original.jpg",
+        "postImgs": ["https://hips.hearstapps.com/hmg-prod/amv-prod-cad-assets/images/08q1/267367/2008-chevrolet-silverado-and-silverado-hd-photo-193587-s-original.jpg"],
         "tags": [
             {
                 "_id" : "640e3344447da0e453263622"
@@ -27,7 +27,7 @@
         "title": "OSRS Goldfarming Bot",
         "description": "Coming straight from Venezuela!",
         "price": 7.99,
-        "postImgs": "https://i.ytimg.com/vi/QtEhjtuwoRA/maxresdefault.jpg",
+        "postImgs": ["https://i.ytimg.com/vi/QtEhjtuwoRA/maxresdefault.jpg", "https://hips.hearstapps.com/hmg-prod/amv-prod-cad-assets/images/08q1/267367/2008-chevrolet-silverado-and-silverado-hd-photo-193587-s-original.jpg", "https://hips.hearstapps.com/hmg-prod/amv-prod-cad-assets/images/08q1/267367/2008-chevrolet-silverado-and-silverado-hd-photo-193587-s-original.jpg", "https://hips.hearstapps.com/hmg-prod/amv-prod-cad-assets/images/08q1/267367/2008-chevrolet-silverado-and-silverado-hd-photo-193587-s-original.jpg"],
         "tags": [
             {
                 "_id" : "640e3344447da0e453263622"
