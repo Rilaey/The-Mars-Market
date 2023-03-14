@@ -29,7 +29,7 @@ const typeDefs = gql`
     title: String!
     description: String!
     price: Float!
-    postImgs: [Image]
+    postImgs: [String]
     createdAt: String!
     tags: [Tag]!
     comments: [Comment]!

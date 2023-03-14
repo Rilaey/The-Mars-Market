@@ -17,7 +17,7 @@ export default function Home() {
 
     <div className='card-container justify-center items-center flex flex-wrap'>
       {posts.map(product => (
-        <Card className="card" post={product._id} key={product._id} title={product.title} description={product.description} price={product.price} image={product?.image}/>
+        <Card className="card" post={product._id} key={product._id} title={product.title} description={product.description} price={product.price} image={product?.postImgs[0]}/>
       ))}
     </div>
   )
