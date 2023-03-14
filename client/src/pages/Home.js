@@ -1,5 +1,4 @@
 import React from 'react';
-import getProducts from '../data/products';
 import Card from '../components/Card';
 import { QUERY_POSTS } from '../utils/queries';
 import { useQuery } from '@apollo/client';

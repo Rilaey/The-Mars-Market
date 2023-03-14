@@ -5,6 +5,10 @@ export default function Card(props) {
     const location = useLocation();
     const navigate = useNavigate();
 
+    function currencyFormat(num) {
+        return '$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+     }
+
     return (
         <div className="card w-96 glass m-[24px]">
             {location.pathname.includes("profile") ? <div className="flex justify-end p-2">
@@ -17,8 +21,8 @@ export default function Card(props) {
                 <div className="flex justify-between">
                     <h2 className="card-title">{props.title}</h2>
                 </div>
-                <p>${props.price}</p>
-                <p>{props.description}</p>
+                <p>{currencyFormat(props.price)}</p>
+                <p className="overflow-hidden text-ellipsis whitespace-nowrap">{props.description}</p>
                 <div className="card-actions justify-end">
                     {location.pathname.includes("profile") ? <button className="btn btn-primary">Edit</button> : <button onClick={() => {
                         navigate("/item/" + props.post);
