@@ -15,6 +15,7 @@ export const QUERY_USER = gql`
 export const QUERY_ALL_TAGS = gql`
 query getAllTags {
   getAllTags {
+    _id
     tagName
   }
 }
@@ -26,6 +27,7 @@ export const QUERY_POST = gql`
       title
       description
       price
+      postImgs
       user {
         _id
         phoneNumber
@@ -42,6 +44,7 @@ export const QUERY_POSTS = gql`
       title
       description
       price
+      postImgs
       user {
         _id
       }
