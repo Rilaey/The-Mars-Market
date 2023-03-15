@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { QUERY_POST, QUERY_POSTS } from '../utils/queries';
 import { useQuery } from '@apollo/client';
 import Card from '../components/Card';
+import Slide from '../components/Slide';
 
 export default function Item() {
     const { id } = useParams();
@@ -21,12 +22,24 @@ export default function Item() {
 
     const post = data?.post || {};
 
-    console.log(post)
-
     return (
         <><div className="pt-[24px] hero bg-base-200">
             <div className="hero-content flex-col lg:flex-row">
-                <img src={post?.postImgs[0]} className="max-w-sm rounded-lg shadow-2xl w-[345px]" />
+                {/* <img src={post?.postImgs[0]} className="max-w-sm rounded-lg shadow-2xl w-[345px]" /> */}
+                <div className="carousel w-full">
+                    {post.postImgs.map(function(image, i){
+                        if (post.postImgs.length === 1) {
+                            return < Slide key={i} index={i} postImg={image} singleImg={true} />
+                        }
+                        if (i === 0) {
+                            return < Slide key={i} index={i} postImg={image} singleImg={false} previous={post.postImgs.length - 1} next={i + 1} />
+                        }
+                        if (i === post.postImgs.length - 1) {
+                            return < Slide key={i} index={i} postImg={image} singleImg={false} previous={i - 1} next={0} /> 
+                        }
+                        return < Slide key={i} index={i} postImg={image} singleImg={false} previous={i - 1} next={i + 1} />
+                    })}
+                </div>
                 <div>
                     <h1 className="text-5xl font-bold flex items-center">{post.title}</h1>
                     <div className="divider"></div>
@@ -38,11 +51,11 @@ export default function Item() {
                 </div>
             </div>
         </div>
-        <h2 className="flex justify-center pt-[12px] text-3xl font-bold">Featured items you may like</h2>
-        <div className='card-container justify-center items-center flex flex-wrap'>
+            <h2 className="flex justify-center pt-[12px] text-3xl font-bold">Featured items you may like</h2>
+            <div className='card-container justify-center items-center flex flex-wrap'>
                 {query2Result.data.posts.map(product => {
-                    if (product._id == id) 
-                        return
+                    if (product._id === id)
+                        return ""
                     return <Card className="card" post={product._id} key={product._id} title={product.title} description={product.description} price={product.price} image={product?.postImgs[0]} />
                 }
                 )}
