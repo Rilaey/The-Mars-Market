@@ -20,9 +20,7 @@ export default function Item() {
     }
 
     const post = data?.post || {};
-
-    console.log(post)
-
+    
     return (
         <><div className="pt-[24px] hero bg-base-200">
             <div className="hero-content flex-col lg:flex-row">

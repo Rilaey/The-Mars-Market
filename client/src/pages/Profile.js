@@ -1,5 +1,4 @@
 import React from 'react';
-import getProducts from '../data/products';
 import Card from '../components/Card';
 import glub from '../assets/glub.png';
 import { BsPersonCircle } from 'react-icons/bs';
@@ -7,15 +6,20 @@ import { AiOutlineMail } from 'react-icons/ai'
 import {HiPhone} from 'react-icons/hi';
 import { useQuery } from '@apollo/client';
 import { QUERY_USER } from '../utils/queries';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Profile() {
+  const navigate = useNavigate();
   const { loading, data } = useQuery(QUERY_USER, {
-    variables: { id: "640e3344447da0e45326361c"},
+    variables: { userId: "641107fa49013e5ccc7336bf"},
   });
 
-  const user = data?.user || {};
+  if (loading) {
+    return <div>Loading...</div>
+  }
 
+  const user = data?.user || {};
 
   return (
     <>
@@ -29,12 +33,12 @@ export default function Profile() {
                 <p className="py-2 flex items-center"><AiOutlineMail className='mr-[8px] text-[20px]' />{user?.email}</p>
                 <p className="py-2 flex items-center"><HiPhone className='mr-[8px] text-[20px]' /> {user?.phoneNumber}</p>
                 <button className="my-2 btn btn-primary">New Post</button>
-                <button className="my-2 mx-2 btn btn-primary">Edit Profile</button>
+                <button onClick={() => { navigate("/editprofile/" + user._id)}} className="my-2 mx-2 btn btn-primary">Edit Profile</button>
               </div>
             </div>
           </div><h1 className="flex justify-center pt-[12px] text-5xl font-bold">Your Items</h1><div className='card-container justify-center items-center flex flex-wrap'>
-              {getProducts().map(product => (
-                <Card className="card" key={product.id} title={product.title} description={product.description} price={product.price} image={product.image} />
+              {user.posts.map(product => (
+                <Card className="card" key={product._id} title={product.title} description={product.description} price={product.price} image={product.postImgs[0]} />
               ))}
             </div></>
     </>

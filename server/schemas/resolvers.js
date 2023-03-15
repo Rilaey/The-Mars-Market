@@ -28,7 +28,8 @@ const resolvers = {
   }),
   Query: {
     user: async (parent, { id }) => {
-      return await User.findById(id).populate('posts').populate('comments');
+      const user = await User.findById(id).populate('posts');
+      return user;
     },
     users: async () => {
       return await User.find();
@@ -48,7 +49,6 @@ const resolvers = {
       } catch (err) {
         console.log(err);
       }
-
     },
     post: async (parent, { id }) => {
       const post = await Post.findById(id).populate('user');
