@@ -5,7 +5,8 @@
         "email": "tommycat@gmail.com",
         "password": "password1",
         "username": "tommyCat",
-        "phoneNumber": "555-555-5555"
+        "phoneNumber": "555-555-5555",
+        "profilePicture": "https://images.unsplash.com/photo-1678792340593-f8692e76e46d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
     },
     {
         "firstName": "Mike",

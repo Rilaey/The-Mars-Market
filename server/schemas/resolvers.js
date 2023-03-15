@@ -1,4 +1,4 @@
-const { User, Post, Tag } = require('../models');
+const { User, Post, Tag, Comment } = require('../models');
 const {GraphQLScalarType, Kind} = require('graphql');
 
 const resolvers = {
@@ -80,14 +80,14 @@ const resolvers = {
       const user = await User.findByIdAndRemove(id);
       return user;
     },
-    addProfilePicture: async (parent, { id, input }) => {
+    addProfilePicture: async (parent, { id, profilePicture }) => {
       const user = await User.findById(id);
-      user.profilePicture = input;
+      user.profilePicture = profilePicture;
       await user.save();
       return user;
     },
-    createTag: async (parent, { tagname }) => {
-      const tag = new Tag({ tagname });
+    createTag: async (parent, { tagName }) => {
+      const tag = new Tag({ tagName: tagName });
       await tag.save();
       return tag;
     },
@@ -111,11 +111,11 @@ const resolvers = {
         };
       }
     },
-    updateTag: async (parent, { tagId, tagname }) => {
+    updateTag: async (parent, { tagId, tagName }) => {
       try {
         const tag = await Tag.findByIdAndUpdate(
           tagId,
-          { tagname },
+          { tagName },
           { new: true }
         );
         if (!tag) {
@@ -174,7 +174,7 @@ const resolvers = {
 
         const newComment = new Comment({
           commentText,
-          commentAuthor: user.id,
+          commentAuthor: User._id,
           createdAt: Date.now(),
         });
 
@@ -199,7 +199,7 @@ const resolvers = {
           throw new Error("No comment with that id found.");
         }
 
-        if (comment.commentAuthor.toString() !== user.id) {
+        if (comment.commentAuthor !== User._id) {
           throw new AuthenticationError("You can only delete your own comments.");
         }
 
@@ -222,7 +222,7 @@ const resolvers = {
           throw new Error("No comment with that id found.");
         }
 
-        if (comment.commentAuthor.toString() !== user.id) {
+        if (comment.commentAuthor !== User._id) {
           throw new AuthenticationError("You can only update your own comments.");
         }
 

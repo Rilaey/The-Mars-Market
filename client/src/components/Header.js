@@ -45,7 +45,7 @@ function Header() {
           {loading ? (
             <div>Loading...</div>
           ) : (
-            tags.map((name) => <option key={tags._id}>{name.tagName}</option>)
+            tags.map((name) => <option key={name._id}>{name.tagName}</option>)
           )}
         </select>
 

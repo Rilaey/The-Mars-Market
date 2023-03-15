@@ -35,8 +35,7 @@ const userSchema = new Schema({
     trim: true
   },
   profilePicture: {
-    data: Buffer,
-    contentType: String
+    type: String
   },
   createdAt: {
     type: Date,
