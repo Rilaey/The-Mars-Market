@@ -1,7 +1,9 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import Item from "../pages/Item";
 
 export default function Card(props) {
     const location = useLocation();
+    const navigate = useNavigate();
 
     return (
         <div className="card w-96 glass m-[24px]">
@@ -18,7 +20,9 @@ export default function Card(props) {
                 <p>${props.price}</p>
                 <p>{props.description}</p>
                 <div className="card-actions justify-end">
-                    {location.pathname.includes("profile") ? <button className="btn btn-primary">Edit</button> : <button className="btn btn-primary">Buy Now!</button>}
+                    {location.pathname.includes("profile") ? <button className="btn btn-primary">Edit</button> : <button onClick={() => {
+                        navigate("/item/" + props.post);
+                    }} className="btn btn-primary">Buy Now!</button>}
                 </div>
             </div>
         </div>
