@@ -1,8 +1,6 @@
-const { gql } = require('apollo-server-express');
-
+const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
-
   scalar Date
 
   type User {
@@ -13,15 +11,15 @@ const typeDefs = gql`
     password: String!
     username: String!
     phoneNumber: String!
-    profilePicture: ProfilePicture
+    profilePicture: String
     createdAt: Date!
     posts: [Post!]
     comments: [Comment!]
   }
 
-  type ProfilePicture {
-    data: String!
-    contentType: String!
+  type Auth {
+    token: ID!
+    user: User
   }
 
   type Post {
@@ -75,11 +73,6 @@ const typeDefs = gql`
     phoneNumber: String!
   }
 
-  input ProfilePictureInput {
-    data: String!
-    contentType: String!
-  }
-
   type Query {
     user(_id: ID!): User
     users: [User!]
@@ -88,20 +81,32 @@ const typeDefs = gql`
     getTagById(tagId: ID!): Tag
     getAllTags: [Tag!]!
     getComment(id: ID!): Comment
-  getAllComments: [Comment]
+    getAllComments: [Comment]
   }
 
   type Mutation {
+    login(email: String!, password: String!): Auth
     createUser(input: UserInput!): User!
-    updateUser(_id: ID!, input: UserInput!): User!
-    deleteUser(_id: ID!): User!
-    addProfilePicture(id: ID!, input: ProfilePictureInput!): User!
-    createPost(title: String!, description: String!, price: Float!, tags: [ID!]): Post!
-    updatePost(id: ID!, title: String, description: String, price: Float, tags: [ID!]): Post
+    updateUser(id: ID!, input: UserInput!): User!
+    deleteUser(id: ID!): User!
+    addProfilePicture(id: ID!, profilePicture: String!): User!
+    createPost(
+      title: String!
+      description: String!
+      price: Float!
+      tags: [ID!]
+    ): Post!
+    updatePost(
+      id: ID!
+      title: String!
+      description: String!
+      price: Float!
+      tags: [ID!]
+    ): Post
     deletePost(id: ID!): Post
-    createTag(tagname: String!): Tag
+    createTag(tagName: String!): Tag
     deleteTag(tagId: ID!): DeleteTagResponse!
-    updateTag(tagId: ID!, tagname: String!): UpdateTagResponse!
+    updateTag(tagId: ID!, tagName: String!): UpdateTagResponse!
     createComment(commentText: String!, postId: ID!): Comment
     deleteComment(id: ID!): Comment
     updateComment(id: ID!, commentText: String!): Comment

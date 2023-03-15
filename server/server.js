@@ -4,11 +4,9 @@ const { ApolloServer } = require("apollo-server-express");
 const path = require("path");
 const db = require("./config/connection");
 
-// NEED TO IMPLEMENT GRAPHQL THINGS
 const { authMiddleware } = require("./utils/auth");
 const { typeDefs, resolvers } = require("./schemas");
 
-const PORT = process.env.PORT;
 const app = express();
 const server = new ApolloServer({
   typeDefs,
@@ -129,10 +127,10 @@ const startApolloServer = async (typeDefs, resolvers) => {
   server.applyMiddleware({ app });
 
   db.once("open", () => {
-    app.listen(PORT, () => {
-      console.log(`API server running on port ${PORT}!`);
+    app.listen(process.env.PORT, () => {
+      console.log(`API server running on port ${process.env.PORT}!`);
       console.log(
-        `Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`
+        `Use GraphQL at http://localhost:${process.env.PORT}${server.graphqlPath}`
       );
     });
   });

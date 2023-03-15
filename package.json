@@ -25,6 +25,7 @@
     "concurrently": "^7.6.0"
   },
   "dependencies": {
+    "dotenv": "^16.0.3",
     "i": "^0.3.7",
     "jwt-decode": "^3.1.2",
     "npm": "^9.6.1"
