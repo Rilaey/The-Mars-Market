@@ -1,13 +1,13 @@
 import { React, useState } from "react";
 import { useMutation } from "@apollo/client";
+import { LOGIN_USER } from "../utils/mutations";
 
 import auth from "../utils/auth";
 
-export default function SignIn(props) {
-  //  TODO need to add mutation for login
+export default function SignIn() {
   const [formState, setFormState] = useState({ email: "", password: "" });
+  const [login, { error, data }] = useMutation(LOGIN_USER);
 
-  // update state based on form input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
 
@@ -16,41 +16,42 @@ export default function SignIn(props) {
       [name]: value
     });
   };
-    // TODO add mutation to uncomment this
-    // submit form
-    // const handleFormSubmit = async (event) => {
-    //   event.preventDefault();
-    //   console.log(formState);
-    //   try {
-    //     const { data } = await login({
-    //       variables: { ...formState },
-    //     });
 
-    //     Auth.login(data.login.token);
-    //   } catch (e) {
-    //     console.error(e);
-    //   }
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    console.log(formState);
+    try {
+      const { data } = await login({
+        variables: { ...formState }
+      });
 
-    //   // clear form values
-    //   setFormState({
-    //     email: '',
-    //     password: '',
-    //   });
-    // };
+      auth.login(data.login.token);
+
+      setFormState({
+        email: "",
+        password: ""
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-          <div className="card-body">
+          <form onSubmit={handleFormSubmit} className="card-body">
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
               </label>
               <input
                 type="text"
-                placeholder="email"
+                placeholder="Email"
                 className="input input-bordered"
+                name="email"
+                value={formState.email}
+                onChange={handleChange}
               />
             </div>
             <div className="form-control">
@@ -58,9 +59,12 @@ export default function SignIn(props) {
                 <span className="label-text">Password</span>
               </label>
               <input
-                type="text"
-                placeholder="password"
+                type="password"
+                placeholder="Password"
                 className="input input-bordered"
+                name="password"
+                value={formState.password}
+                onChange={handleChange}
               />
               <label className="label">
                 <a href="/signup" className="label-text-alt link link-hover">
@@ -71,7 +75,7 @@ export default function SignIn(props) {
             <div className="form-control mt-6">
               <button className="btn btn-primary">Login</button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
