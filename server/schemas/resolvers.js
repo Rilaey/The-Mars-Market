@@ -142,12 +142,13 @@ const resolvers = {
       }
     },
     createPost: async (parent, args) => {
-      const { title, description, price, tags } = args;
+      const { title, description, price, tags, postImgs } = args;
       const post = new Post({
         title,
         description,
         price,
         tags,
+        postImgs
       });
       await post.save();
       return post;
