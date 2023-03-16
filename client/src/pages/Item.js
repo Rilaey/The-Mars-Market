@@ -1,6 +1,6 @@
 import { AiOutlineMail } from "react-icons/ai";
 import { HiPhone } from "react-icons/hi";
-import { useParams, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { QUERY_POST, QUERY_POSTS } from "../utils/queries";
 import { useQuery } from "@apollo/client";
 import Card from "../components/Card";
