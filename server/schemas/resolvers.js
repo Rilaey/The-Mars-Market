@@ -28,8 +28,8 @@ const resolvers = {
     }
   }),
   Query: {
-    user: async (parent, { id }) => {
-      return await User.findById(id).populate("posts").populate("comments");
+    user: async (parent, { _id }) => {
+      return await User.findOne({ _id }).populate("posts").populate("comments");
     },
     users: async () => {
       return await User.find();
