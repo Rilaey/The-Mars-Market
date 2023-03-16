@@ -17,22 +17,21 @@ export const CREATE_USER = gql`
     $firstName: String!
     $lastName: String!
     $email: String!
+    $phoneNumber: String!
     $password: String!
     $username: String!
-    $phoneNumber: String!
   ) {
     createUser(
       firstName: $firstName
       lastName: $lastName
       email: $email
+      phoneNumber: $phoneNumber
       password: $password
       username: $username
-      phoneNumber: $phoneNumber
     ) {
       token
       user {
         _id
-        username
       }
     }
   }
@@ -75,7 +74,10 @@ export const DELETE_USER = gql`
 `;
 
 export const ADD_PROFILE_PICTURE = gql`
-  mutation addProfilePicture($addProfilePictureId: ID!, $profilePicture: String!) {
+  mutation addProfilePicture(
+    $addProfilePictureId: ID!
+    $profilePicture: String!
+  ) {
     addProfilePicture(
       id: $addProfilePictureId
       profilePicture: $profilePicture
@@ -86,11 +88,22 @@ export const ADD_PROFILE_PICTURE = gql`
 `;
 
 export const CREATE_POST = gql`
-  mutation createPost($title: String!, $description: String!, $price: Float!) {
-    createPost(title: $title, description: $description, price: $price) {
+  mutation createPost(
+    $title: String!
+    $description: String!
+    $price: Float!
+    $postImgs: [String!]
+  ) {
+    createPost(
+      title: $title
+      description: $description
+      price: $price
+      postImgs: $postImgs
+    ) {
+      _id
       title
       description
-      price
+      postImgs
     }
   }
 `;
