@@ -94,6 +94,7 @@ const typeDefs = gql`
       title: String!
       description: String!
       price: Float!
+      postImgs: [String!]
       tags: [ID!]
     ): Post!
     updatePost(
