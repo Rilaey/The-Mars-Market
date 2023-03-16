@@ -1,11 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import { QUERY_ALL_TAGS } from "../utils/queries";
+import { QUERY_ALL_TAGS, QUERY_USER } from "../utils/queries";
 import { Link } from "react-router-dom";
-import Auth from "../utils/auth";
+import auth from "../utils/auth";
 import glub from "../assets/glub.png";
 
 function Header() {
+  const logout = (event) => {
+    event.preventDefault();
+    auth.logout();
+  };
+
+  // get all tags
   const { loading, data } = useQuery(QUERY_ALL_TAGS);
   const tags = data?.getAllTags || [];
 
@@ -25,7 +31,7 @@ function Header() {
             className="input input-bordered"
           />
         </div>
-        <button className="btn btn-ghost btn-circle flex sm:hidden" >
+        <button className="btn btn-ghost btn-circle flex sm:hidden">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5"
@@ -49,7 +55,7 @@ function Header() {
           )}
         </select>
 
-        {Auth.loggedIn() ? (
+        {auth.loggedIn() ? (
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
@@ -61,18 +67,16 @@ function Header() {
               className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
             >
               <li key={"profile-1"}>
-                <Link>
-                  Profile
-                </Link>
+                <Link>Profile</Link>
               </li>
               <li key={"logout-2"}>
-                <Link>Logout</Link>
+                <Link onClick={logout}>Logout</Link>
               </li>
             </ul>
           </div>
         ) : (
           <>
-            <Link to='/signup'>
+            <Link to="/signup">
               <button className="btn btn-outline btn-success">Login</button>
             </Link>
           </>

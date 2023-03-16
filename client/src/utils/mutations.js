@@ -17,22 +17,21 @@ export const CREATE_USER = gql`
     $firstName: String!
     $lastName: String!
     $email: String!
+    $phoneNumber: String!
     $password: String!
     $username: String!
-    $phoneNumber: String!
   ) {
     createUser(
       firstName: $firstName
       lastName: $lastName
       email: $email
+      phoneNumber: $phoneNumber
       password: $password
       username: $username
-      phoneNumber: $phoneNumber
     ) {
       token
       user {
         _id
-        username
       }
     }
   }

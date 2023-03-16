@@ -1,21 +1,22 @@
-const { User, Post, Tag, Comment } = require('../models');
-const {GraphQLScalarType, Kind} = require('graphql');
+const { User, Post, Tag, Comment } = require("../models");
+const { GraphQLScalarType, Kind } = require("graphql");
+const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Date: new GraphQLScalarType({
-    name: 'Date',
-    description: 'Date custom scalar type',
+    name: "Date",
+    description: "Date custom scalar type",
     serialize(value) {
       if (value instanceof Date) {
         return value.getTime(); // Convert outgoing Date to integer for JSON
       }
-      throw Error('GraphQL Date Scalar serializer expected a `Date` object');
+      throw Error("GraphQL Date Scalar serializer expected a `Date` object");
     },
     parseValue(value) {
-      if (typeof value === 'number') {
+      if (typeof value === "number") {
         return new Date(value); // Convert incoming integer to Date
       }
-      throw new Error('GraphQL Date Scalar parser expected a `number`');
+      throw new Error("GraphQL Date Scalar parser expected a `number`");
     },
     parseLiteral(ast) {
       if (ast.kind === Kind.INT) {
@@ -24,11 +25,11 @@ const resolvers = {
       }
       // Invalid hard-coded value (not an integer)
       return null;
-    },
+    }
   }),
   Query: {
     user: async (parent, { id }) => {
-      return await User.findById(id).populate('posts').populate('comments');
+      return await User.findById(id).populate("posts").populate("comments");
     },
     users: async () => {
       return await User.find();
@@ -43,15 +44,14 @@ const resolvers = {
     },
     posts: async () => {
       try {
-        const posts = await Post.find().populate('user');
+        const posts = await Post.find().populate("user");
         return posts;
       } catch (err) {
         console.log(err);
       }
-
     },
     post: async (parent, { id }) => {
-      const post = await Post.findById(id).populate('user');
+      const post = await Post.findById(id).populate("user");
       return post;
     },
     getComment: async (_, { id }) => {
@@ -69,13 +69,41 @@ const resolvers = {
       } catch (err) {
         console.error(err);
       }
-    },
+    }
   },
   Mutation: {
-    createUser: async (parent, { input }) => {
-      const user = new User(input);
+    createUser: async (
+      parent,
+      { firstName, lastName, email, phoneNumber, password, username }
+    ) => {
+      const user = new User({
+        firstName,
+        lastName,
+        email,
+        phoneNumber,
+        password,
+        username
+      });
+      const token = signToken(user);
       await user.save();
-      return user;
+      return { user, token };
+    },
+    login: async (parent, { email, password }) => {
+      const user = await User.findOne({ email });
+
+      if (!user) {
+        throw new AuthenticationError('No user found with this email address');
+      }
+
+      const correctPw = await user.isCorrectPassword(password);
+
+      if (!correctPw) {
+        throw new AuthenticationError('Incorrect credentials');
+      }
+
+      const token = signToken(user);
+
+      return { token, user };
     },
     updateUser: async (parent, { id, input }) => {
       const user = await User.findByIdAndUpdate(id, input, { new: true });
@@ -168,7 +196,9 @@ const resolvers = {
     },
     createComment: async (_, { commentText, postId }, { user }) => {
       if (!user) {
-        throw new AuthenticationError("You must be logged in to create a comment.");
+        throw new AuthenticationError(
+          "You must be logged in to create a comment."
+        );
       }
 
       try {
@@ -181,7 +211,7 @@ const resolvers = {
         const newComment = new Comment({
           commentText,
           commentAuthor: User._id,
-          createdAt: Date.now(),
+          createdAt: Date.now()
         });
 
         await newComment.save();
@@ -195,7 +225,9 @@ const resolvers = {
     },
     deleteComment: async (_, { id }, { user }) => {
       if (!user) {
-        throw new AuthenticationError("You must be logged in to delete a comment.");
+        throw new AuthenticationError(
+          "You must be logged in to delete a comment."
+        );
       }
 
       try {
@@ -206,7 +238,9 @@ const resolvers = {
         }
 
         if (comment.commentAuthor !== User._id) {
-          throw new AuthenticationError("You can only delete your own comments.");
+          throw new AuthenticationError(
+            "You can only delete your own comments."
+          );
         }
 
         await comment.remove();
@@ -218,7 +252,9 @@ const resolvers = {
     },
     updateComment: async (_, { id, commentText }, { user }) => {
       if (!user) {
-        throw new AuthenticationError("You must be logged in to update a comment.");
+        throw new AuthenticationError(
+          "You must be logged in to update a comment."
+        );
       }
 
       try {
@@ -229,7 +265,9 @@ const resolvers = {
         }
 
         if (comment.commentAuthor !== User._id) {
-          throw new AuthenticationError("You can only update your own comments.");
+          throw new AuthenticationError(
+            "You can only update your own comments."
+          );
         }
 
         comment.commentText = commentText;
@@ -241,13 +279,13 @@ const resolvers = {
       } catch (err) {
         console.error(err);
       }
-    },
+    }
   },
   Tag: {
     posts: async (tag) => {
       const posts = await Post.find({ tags: tag.id });
       return posts;
-    },
+    }
   },
   User: {
     posts: async (user) => {
@@ -256,7 +294,7 @@ const resolvers = {
     },
     comments: async (parent) => {
       return await Comment.find({ commentAuthor: parent.id });
-    },
+    }
   },
   Post: {
     user: async (post) => {
@@ -264,7 +302,7 @@ const resolvers = {
     },
     comments: async (parent) => {
       return await Comment.find({ post: parent.id });
-    },
+    }
   },
   Comment: {
     commentAuthor: async (parent) => {
@@ -278,8 +316,8 @@ const resolvers = {
     post: async (comment) => {
       const post = await Post.findById(comment.post);
       return post;
-    },
-  },
+    }
+  }
 };
 
 module.exports = resolvers;
