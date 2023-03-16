@@ -21,7 +21,7 @@ function App() {
         <div className="pt-[50px]">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile/:profileId" element={<Profile />} />
             <Route path="*" element={<NoPageFound />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />

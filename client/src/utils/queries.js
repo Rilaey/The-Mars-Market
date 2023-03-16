@@ -1,25 +1,27 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const QUERY_USER = gql`
-  query user($id: ID!) {
-    user(_id: $id) {
+  query user($_id: ID!) {
+    user(_id: $_id) {
+      _id
       firstName
       lastName
-      username
       email
       phoneNumber
+      username
+      profilePicture
     }
   }
 `;
 
 export const QUERY_ALL_TAGS = gql`
-query getAllTags {
-  getAllTags {
-    _id
-    tagName
+  query getAllTags {
+    getAllTags {
+      _id
+      tagName
+    }
   }
-}
-`
+`;
 
 export const QUERY_POST = gql`
   query post($id: ID!) {
