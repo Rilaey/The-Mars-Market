@@ -6,6 +6,7 @@ import auth from "../utils/auth";
 import glub from "../assets/glub.png";
 
 function Header() {
+  const navigate = useNavigate();
   const logout = (event) => {
     event.preventDefault();
     auth.logout();
@@ -15,7 +16,6 @@ function Header() {
   const { loading, data } = useQuery(QUERY_ALL_TAGS);
   const tags = data?.getAllTags || [];
 
-  const navigate = useNavigate();
   return (
     <div className="navbar bg-base-100 fixed z-10">
       <div className="flex-1">
@@ -36,7 +36,8 @@ function Header() {
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
-                <img src={glub} />
+                {auth.loggedIn() ? (<img src={auth.getProfile().data.profilePicture} />) : <img src={glub} />}
+                
               </div>
             </label>
             <ul
@@ -44,7 +45,9 @@ function Header() {
               className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
             >
               <li key={"profile-1"}>
-                <Link>Profile</Link>
+                <button onClick={() => {
+                  navigate(`/profile/${auth.getProfile().data._id}`)
+                }}>Profile</button>
               </li>
               <li key={"logout-2"}>
                 <Link onClick={logout}>Logout</Link>

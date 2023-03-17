@@ -7,6 +7,7 @@ import Card from "../components/Card";
 import Slide from "../components/Slide";
 
 export default function Item() {
+  const navigate = useNavigate();
   const { id } = useParams();
 
   const { loading, data } = useQuery(QUERY_POST, {
@@ -87,7 +88,9 @@ export default function Item() {
             </p>
             <div>
               <button className="my-2 mx-3 btn btn-primary">Buy Now</button>
-              <button className="my-2 btn btn-primary">Seller's Profile</button>
+              <button className="my-2 btn btn-primary" onClick={() => {
+                navigate(`/profile/${post.user._id}`)
+              }}>Seller's Profile</button>
             </div>
           </div>
         </div>
