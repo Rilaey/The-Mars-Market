@@ -1,0 +1,43 @@
+[
+    {
+        "firstName": "Tommy",
+        "lastName": "Cat",
+        "email": "tommycat@gmail.com",
+        "password": "password1",
+        "username": "tommyCat",
+        "phoneNumber": "555-555-5555",
+        "profilePicture": "https://images.unsplash.com/photo-1678792340593-f8692e76e46d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+    },
+    {
+        "firstName": "Mike",
+        "lastName": "Brady",
+        "email": "mikebrady@gmail.com",
+        "password":"password2",
+        "username": "mikeBrady",
+        "phoneNumber": "555-555-5555"
+    },
+    {
+        "firstName": "Bobby",
+        "lastName": "Winner",
+        "email": "bobbywinner@gmail.com",
+        "password": "password3",
+        "username": "bobbyWinner",
+        "phoneNumber": "555-555-5555"
+    },
+    {
+        "firstName": "Greg",
+        "lastName": "Jones",
+        "email": "gregjones@gmail.com",
+        "password": "password4",
+        "username": "gregJones",
+        "phoneNumber": "555-555-5555"
+    },
+    {
+        "firstName": "Casey",
+        "lastName": "Laces",
+        "email": "caseylaces@gmail.com",
+        "password": "password5",
+        "username": "caseylaces",
+        "phoneNumber": "555-555-5555"
+    }
+]

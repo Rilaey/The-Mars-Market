@@ -16,8 +16,10 @@ const postSchema = new Schema({
     type: Number,
     required: "Post Must Have Price!"
   },
-  // need to figure how images
-  image: {},
+  // need to figure how images work
+  postImgs: {
+    type: [String]
+  },
   createdAt: {
     type: Date,
     default: Date.now,
@@ -34,7 +36,11 @@ const postSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: "Comment"
     }
-  ]
+  ],
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  }
 });
 
 const Post = model("Post", postSchema);

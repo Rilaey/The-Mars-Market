@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 const tagSchema = new Schema({
-  tagname: {
+  tagName: {
     type: String,
     required: true
   }
