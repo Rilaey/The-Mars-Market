@@ -114,8 +114,8 @@ const resolvers = {
       const user = await User.findByIdAndRemove(id);
       return user;
     },
-    addProfilePicture: async (parent, { id, profilePicture }) => {
-      const user = await User.findById(id);
+    addProfilePicture: async (parent, { _id, profilePicture }) => {
+      const user = await User.findOne({ _id });
       user.profilePicture = profilePicture;
       await user.save();
       return user;

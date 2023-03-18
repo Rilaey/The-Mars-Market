@@ -81,10 +81,10 @@ export const ADD_PROFILE_PICTURE = gql`
     $profilePicture: String!
   ) {
     addProfilePicture(
-      id: $addProfilePictureId
+      _id: $addProfilePictureId
       profilePicture: $profilePicture
     ) {
-      id
+      profilePicture
     }
   }
 `;

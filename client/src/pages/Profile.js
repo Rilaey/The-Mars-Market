@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ProfileCard from '../components/ProfileCard';
 import Card from '../components/Card';
 import { BsPersonCircle } from 'react-icons/bs';
@@ -8,6 +8,7 @@ import { useQuery } from '@apollo/client';
 import { QUERY_USER } from '../utils/queries';
 import { useParams } from 'react-router-dom';
 import auth from "../utils/auth";
+import ProfilePicture from '../components/ProfilePicture';
 
 
 export default function Profile() {
@@ -20,7 +21,7 @@ export default function Profile() {
   const user = data?.user || {};
 
   if(loading) {
-    return <div className='flex justify-center items-center text-center min-h-[95vh]'> 
+    return <div className='flex justify-center items-center text-center min-h-[95vh]'>
     <button className="btn btn-square loading"></button>
     </div>
   }
@@ -41,7 +42,7 @@ export default function Profile() {
             <p className="py-2 flex items-center"><HiPhone className='mr-[8px] text-[20px]' /> {user.phoneNumber}</p>
             <button className="my-2 btn btn-primary">New Post</button>
             <button className="my-2 mx-2 btn btn-primary">Edit Profile Info</button>
-            <button className="my-2 mx-2 btn btn-primary">Edit Profile Picture</button>
+              <ProfilePicture />
           </div>
         </div>
       </div><h1 className="flex justify-center pt-[12px] text-5xl font-bold">Your Items</h1><div className='card-container justify-center items-center flex flex-wrap'>

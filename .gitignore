@@ -6,3 +6,4 @@ server/profile-pictures
 .env.test.local
 .env.production.local
 .env.local
+sever/.env
