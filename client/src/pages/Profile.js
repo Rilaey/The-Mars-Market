@@ -1,5 +1,4 @@
 import React from 'react';
-import getProducts from '../data/products';
 import Card from '../components/Card';
 import { BsPersonCircle } from 'react-icons/bs';
 import { AiOutlineMail } from 'react-icons/ai'
@@ -43,8 +42,8 @@ export default function Profile() {
               </div>
             </div>
           </div><h1 className="flex justify-center pt-[12px] text-5xl font-bold">Your Items</h1><div className='card-container justify-center items-center flex flex-wrap'>
-              {getProducts().map(product => (
-                <Card className="card" key={product.id} title={product.title} description={product.description} price={product.price} image={product.image} />
+              {user.posts.map(product => (
+                <Card className="card" key={product._id} title={product.title} description={product.description} price={product.price} image={product.postImgs[0]} />
               ))}
             </div></>
     </>

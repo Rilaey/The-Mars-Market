@@ -3,7 +3,6 @@ import { useQuery } from "@apollo/client";
 import { QUERY_ALL_TAGS, QUERY_USER } from "../utils/queries";
 import { Link } from "react-router-dom";
 import auth from "../utils/auth";
-import glub from "../assets/glub.png";
 
 function Header() {
   const navigate = useNavigate();
@@ -36,7 +35,7 @@ function Header() {
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
-                {auth.loggedIn() ? (<img src={auth.getProfile().data.profilePicture} />) : <img src={glub} />}
+                {auth.loggedIn() ? (<img src={auth.getProfile().data.profilePicture} />) : <img src={"https://villagesonmacarthur.com/wp-content/uploads/2020/12/Blank-Avatar.png"} />}
                 
               </div>
             </label>
