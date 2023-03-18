@@ -9,7 +9,9 @@ export default function Home() {
   const { loading, data } = useQuery(QUERY_POSTS);
 
   if (loading) {
-    return <div>LOADING</div>
+    return <div className='flex justify-center items-center text-center min-h-[95vh]'> 
+      <button className="btn btn-square loading"></button>
+      </div>
   }
   const posts = data?.posts || {};
 
@@ -21,8 +23,6 @@ export default function Home() {
   }
 
   const filteredItems = getFilteredItems(query, posts)
-
-
 
   return (
     <><div className="flex items-center form-control pt-[48px]">
