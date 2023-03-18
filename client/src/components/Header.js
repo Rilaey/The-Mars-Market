@@ -36,7 +36,7 @@ function Header() {
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
                 {auth.loggedIn() ? (<img src={auth.getProfile().data.profilePicture} />) : <img src={"https://villagesonmacarthur.com/wp-content/uploads/2020/12/Blank-Avatar.png"} />}
-                
+
               </div>
             </label>
             <ul
