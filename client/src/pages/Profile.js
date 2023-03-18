@@ -18,7 +18,9 @@ export default function Profile() {
   const user = data?.user || {};
 
   if(loading) {
-    return <div>Loading...</div>
+    return <div className='flex justify-center items-center text-center min-h-[95vh]'> 
+    <button className="btn btn-square loading"></button>
+    </div>
   }
 
   return (
