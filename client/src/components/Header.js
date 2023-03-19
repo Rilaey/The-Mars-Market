@@ -19,11 +19,11 @@ function Header() {
     <div className="navbar bg-base-100 fixed z-10">
       <div className="flex-1">
         <a href="/" className="btn btn-ghost normal-case text-xl">
-          Marketplace
+        The Mars Market
         </a>
       </div>
       <div className="flex-none gap-3">
-        <select className="select select-primary max-w-xs sm:flex overflow-y-scroll">
+        <select className="select select-primary -sm:w-[50%] max-w-xs sm:flex overflow-y-scroll">
           {loading ? (
             <option>Loading...</option>
           ) : (

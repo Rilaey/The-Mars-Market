@@ -73,7 +73,7 @@ export default function Item() {
               );
             })}
           </div>
-          <div>
+          <div className="lg:w-1/2">
             <h1 className="text-5xl font-bold flex items-center">
               {post.title}
             </h1>
