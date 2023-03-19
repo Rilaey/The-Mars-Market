@@ -6,6 +6,7 @@ import NoPageFound from "./pages/NoPageFound";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Item from "./pages/Item";
+import CreatePost from "./pages/CreatePost";
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 
 const client = new ApolloClient({
@@ -26,6 +27,7 @@ function App() {
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/item/:id" element={<Item />} />
+            <Route path="/createpost/:profileId" element={<CreatePost />} />
           </Routes>
         </div>
       </BrowserRouter>
