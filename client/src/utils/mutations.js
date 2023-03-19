@@ -94,7 +94,7 @@ export const CREATE_POST = gql`
     $title: String!
     $description: String!
     $price: Float!
-    $postImgs: [String!]
+    $postImgs: [String]
   ) {
     createPost(
       title: $title

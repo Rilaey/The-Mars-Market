@@ -9,9 +9,11 @@ import { QUERY_USER } from '../utils/queries';
 import { useParams } from 'react-router-dom';
 import auth from "../utils/auth";
 import ProfilePicture from '../components/ProfilePicture';
+import { useNavigate } from "react-router-dom";
 
 
 export default function Profile() {
+  const navigate = useNavigate();
   const { profileId } = useParams()
 
   const { loading, data } = useQuery(QUERY_USER, {
@@ -40,7 +42,9 @@ export default function Profile() {
             <div className="pb-2 flex items-center"><BsPersonCircle className='mr-[8px] text-[20px]' />{user.username}</div>
             <p className="py-2 flex items-center"><AiOutlineMail className='mr-[8px] text-[20px]' />{user.email}</p>
             <p className="py-2 flex items-center"><HiPhone className='mr-[8px] text-[20px]' /> {user.phoneNumber}</p>
-            <button className="my-2 btn btn-primary">New Post</button>
+            <button onClick={() => {
+              navigate("/createpost/" + profileId)
+            }} className="my-2 btn btn-primary">New Post</button>
             <button className="my-2 mx-2 btn btn-primary">Edit Profile Info</button>
               <ProfilePicture />
           </div>
