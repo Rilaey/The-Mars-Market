@@ -133,7 +133,7 @@ export const UPDATE_POST = gql`
 export const DELETE_POST = gql`
   mutation deletePost($deletePostId: ID!) {
     deletePost(id: $deletePostId) {
-      id
+      _id
     }
   }
 `;
