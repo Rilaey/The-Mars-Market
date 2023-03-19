@@ -9,7 +9,7 @@ export default function Home() {
   const { loading, data } = useQuery(QUERY_POSTS);
 
   if (loading) {
-    return <div className='flex justify-center items-center text-center min-h-[95vh]'> 
+    return <div className='flex justify-center items-center text-center min-h-[95vh]'>
       <button className="btn btn-square loading"></button>
       </div>
   }
@@ -30,7 +30,7 @@ export default function Home() {
       <input
         type="text"
         placeholder="Search for item"
-        className="input input-bordered w-full max-w-xs" 
+        className="input input-bordered w-full max-w-xs"
         onChange={e => setQuery(e.target.value)} />
     </div>
       <div className='card-container justify-center items-center flex flex-wrap'>

@@ -92,13 +92,13 @@ const typeDefs = gql`
     deleteUser(id: ID!): User!
     addProfilePicture(_id: ID!, profilePicture: String!): User!
     createPost(
-      postAuthor: ID!
+      user: ID!
       title: String!
       description: String!
       price: Float!
       postImgs: [String]
       tags: [ID!]
-    ): User
+    ): Post
     updatePost(
       id: ID!
       title: String!
