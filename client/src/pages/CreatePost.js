@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { CREATE_POST } from '../utils/mutations';
 import { useMutation } from "@apollo/client";
+import auth from "../utils/auth";
 
 export default function CreatePost() {
 
@@ -9,6 +10,7 @@ export default function CreatePost() {
         description: '',
         price: '',
         postImgs: [],
+        user: auth.getProfile().data._id
     });
 
     const [createPost, { error, data }] = useMutation(CREATE_POST)
@@ -21,10 +23,10 @@ export default function CreatePost() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const { title, description, price, postImgs } = formData;
+            const { title, description, price, postImgs, user } = formData;
             const priceAsFloat = parseFloat(price)
             const { data } = await createPost({
-                variables: { title, description, price: priceAsFloat, postImgs },
+                variables: { title, description, price: priceAsFloat, postImgs, user: auth.getProfile().data._id },
             });
             console.log(data);
             // Reset form data if desired
