@@ -90,17 +90,18 @@ export const ADD_PROFILE_PICTURE = gql`
 `;
 
 export const CREATE_POST = gql`
-mutation CreatePost($postAuthor: ID!, $title: String!, $description: String!, $price: Float!, $postImgs: [String]) {
-  createPost(postAuthor: $postAuthor, title: $title, description: $description, price: $price, postImgs: $postImgs) {
-    _id
+mutation createPost($user: ID!, $title: String!, $description: String!, $price: Float!, $postImgs: [String]) {
+  createPost(user: $user, title: $title, description: $description, price: $price, postImgs: $postImgs) {
     title
-    price
     description
-    createdAt
+    price
     postImgs
-    tags {
-      tagName
+    _id
+    createdAt
+    user {
       _id
+      phoneNumber
+      email
     }
   }
 }
