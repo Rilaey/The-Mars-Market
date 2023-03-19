@@ -40,31 +40,30 @@ export const CREATE_USER = gql`
 `;
 
 export const UPDATE_USER = gql`
-  mutation updateUser(
-    $id: ID!
-    $firstName: String!
-    $lastName: String!
-    $email: String!
-    $password: String!
-    $username: String!
-    $phoneNumber: String!
+mutation updateUser(
+  $_id: ID!
+  $firstName: String!
+  $lastName: String!
+  $email: String!
+  $username: String!
+  $phoneNumber: String!
+) {
+  updateUser(
+    _id: $_id
+    firstName: $firstName
+    lastName: $lastName
+    email: $email
+    username: $username
+    phoneNumber: $phoneNumber
   ) {
-    updateUser(
-      id: $ID
-      firstName: $firstName
-      lastName: $lastName
-      email: $email
-      password: $password
-      username: $username
-      phoneNumber: $phoneNumber
-    ) {
-      token
-      user {
-        _id
-        username
-      }
-    }
+    _id
+    firstName
+    lastName
+    email
+    username
+    phoneNumber
   }
+}
 `;
 
 export const DELETE_USER = gql`

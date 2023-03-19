@@ -8,6 +8,7 @@ import SignUp from "./pages/SignUp";
 import Item from "./pages/Item";
 import CreatePost from "./pages/CreatePost";
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import EditProfile from "./pages/EditProfile";
 
 const client = new ApolloClient({
   uri: '/graphql',
@@ -28,6 +29,7 @@ function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/item/:id" element={<Item />} />
             <Route path="/createpost/:profileId" element={<CreatePost />} />
+            <Route path="/editprofile/:profileId" element={<EditProfile />} />
           </Routes>
         </div>
       </BrowserRouter>

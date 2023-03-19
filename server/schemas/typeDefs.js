@@ -72,6 +72,7 @@ const typeDefs = gql`
     password: String
     username: String
     phoneNumber: String
+    profilePicture: String
   }
 
   type Query {
@@ -88,7 +89,7 @@ const typeDefs = gql`
   type Mutation {
     login(email: String!, password: String!): Auth
     createUser(firstName: String!, lastName: String!, email: String!, phoneNumber: String!, password: String!, username: String!, profilePicture: String): Auth
-    updateUser(id: ID!, input: UserInput!): User!
+    updateUser(_id: ID!, firstName: String, lastName: String, email: String, phoneNumber: String, username: String): User
     deleteUser(id: ID!): User!
     addProfilePicture(_id: ID!, profilePicture: String!): User!
     createPost(

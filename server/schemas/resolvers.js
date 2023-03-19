@@ -110,8 +110,14 @@ const resolvers = {
       const user = await User.findByIdAndUpdate(id, input, { new: true });
       return user;
     },
-    deleteUser: async (parent, { id }) => {
-      const user = await User.findByIdAndRemove(id);
+    updateUser: async (parent, { _id, firstName, lastName, phoneNumber, email, username }) => {
+      const user = await User.findOne({ _id });
+      user.firstName = firstName
+      user.lastName = lastName
+      user.phoneNumber = phoneNumber
+      user.email = email
+      user.username = username
+      await user.save()
       return user;
     },
     addProfilePicture: async (parent, { _id, profilePicture }) => {

@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { CREATE_POST } from '../utils/mutations';
 import { useMutation } from "@apollo/client";
 import auth from "../utils/auth";
+import { useNavigate } from "react-router-dom";
 
 export default function CreatePost() {
-
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -29,6 +30,8 @@ export default function CreatePost() {
                 variables: { title, description, price: priceAsFloat, postImgs, user: auth.getProfile().data._id },
             });
             console.log(data);
+            navigate(`/profile/${auth.getProfile().data._id}`)
+            window.location.reload();
             // Reset form data if desired
         } catch (error) {
             console.error(error);
