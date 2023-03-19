@@ -45,7 +45,9 @@ export default function Profile() {
             <button onClick={() => {
               navigate("/createpost/" + profileId)
             }} className="my-2 btn btn-primary">New Post</button>
-            <button className="my-2 mx-2 btn btn-primary">Edit Profile Info</button>
+            <button className="my-2 mx-2 btn btn-primary" onClick={() => {
+              navigate("/editprofile/" + profileId)
+            }}>Edit Profile Info</button>
               <ProfilePicture />
           </div>
         </div>
