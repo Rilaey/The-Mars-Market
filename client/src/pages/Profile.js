@@ -51,7 +51,7 @@ export default function Profile() {
         </div>
       </div><h1 className="flex justify-center pt-[12px] text-5xl font-bold">Your Items</h1><div className='card-container justify-center items-center flex flex-wrap'>
           {user.posts.map(product => (
-            <ProfileCard className="card" key={product._id} title={product.title} description={product.description} price={product.price} image={product.postImgs[0]} />
+            <ProfileCard className="card" delete={product._id} key={product._id} title={product.title} description={product.description} price={product.price} image={product.postImgs[0]} />
           ))}
         </div></> : <><div className="pt-[24px] hero bg-base-200">
         <div className="hero-content flex-col lg:flex-row">

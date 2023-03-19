@@ -90,24 +90,20 @@ export const ADD_PROFILE_PICTURE = gql`
 `;
 
 export const CREATE_POST = gql`
-  mutation createPost(
-    $title: String!
-    $description: String!
-    $price: Float!
-    $postImgs: [String]
-  ) {
-    createPost(
-      title: $title
-      description: $description
-      price: $price
-      postImgs: $postImgs
-    ) {
+mutation CreatePost($postAuthor: ID!, $title: String!, $description: String!, $price: Float!, $postImgs: [String]) {
+  createPost(postAuthor: $postAuthor, title: $title, description: $description, price: $price, postImgs: $postImgs) {
+    _id
+    title
+    price
+    description
+    createdAt
+    postImgs
+    tags {
+      tagName
       _id
-      title
-      description
-      postImgs
     }
   }
+}
 `;
 
 export const UPDATE_POST = gql`
@@ -133,7 +129,7 @@ export const UPDATE_POST = gql`
 export const DELETE_POST = gql`
   mutation deletePost($deletePostId: ID!) {
     deletePost(id: $deletePostId) {
-      id
+      _id
     }
   }
 `;

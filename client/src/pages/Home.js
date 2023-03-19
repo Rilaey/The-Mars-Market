@@ -25,7 +25,8 @@ export default function Home() {
   const filteredItems = getFilteredItems(query, posts)
 
   return (
-    <><div className="flex items-center form-control pt-[48px]">
+    <><div className='min-h-screen bg-base-200'>
+    <div className="flex items-center form-control pt-[48px]">
       <input
         type="text"
         placeholder="Search for item"
@@ -36,6 +37,6 @@ export default function Home() {
         {filteredItems.map(product => (
           <Card className="card" post={product._id} key={product._id} title={product.title} description={product.description} price={product.price} image={product?.postImgs[0]} />
         ))}
-      </div></>
+      </div></div></>
   )
 }

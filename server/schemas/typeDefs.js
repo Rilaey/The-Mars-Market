@@ -65,12 +65,13 @@ const typeDefs = gql`
   }
 
   input UserInput {
-    firstName: String!
-    lastName: String!
-    email: String!
-    password: String!
-    username: String!
-    phoneNumber: String!
+    _id: ID
+    firstName: String
+    lastName: String
+    email: String
+    password: String
+    username: String
+    phoneNumber: String
   }
 
   type Query {
@@ -91,12 +92,13 @@ const typeDefs = gql`
     deleteUser(id: ID!): User!
     addProfilePicture(_id: ID!, profilePicture: String!): User!
     createPost(
+      postAuthor: ID!
       title: String!
       description: String!
       price: Float!
       postImgs: [String]
       tags: [ID!]
-    ): Post!
+    ): User
     updatePost(
       id: ID!
       title: String!

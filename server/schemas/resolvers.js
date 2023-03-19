@@ -170,16 +170,21 @@ const resolvers = {
         };
       }
     },
-    createPost: async (parent, args) => {
-      const { title, description, price, tags, postImgs } = args;
-      const post = new Post({
+    createPost: async (parent, { title, description, price, tags, postImgs, postAuthor }, context) => {
+      const post = await Post.create({
         title,
         description,
         price,
         tags,
-        postImgs
+        postImgs,
+        postAuthor
       });
-      await post.save();
+
+      await User.findOneAndUpdate(
+        { _id: postAuthor},
+        { $addToSet: { posts: post._id } }
+      );
+
       return post;
     },
     updatePost: async (parent, args) => {
