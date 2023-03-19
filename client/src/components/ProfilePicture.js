@@ -21,8 +21,8 @@ export default function ProfilePicture() {
     });
   };
 
-  const handleFormSubmit = async () => {
-    // event.preventDefault();
+  const handleFormSubmit = async (event) => {
+    //  event.preventDefault();
     console.log(formState);
 
       try {
@@ -30,7 +30,7 @@ export default function ProfilePicture() {
           variables: { ...formState },
         });
 
-        // window.location('/').reload(true);
+          console.log(data)
       } catch (error) {
         console.error(error);
       }
