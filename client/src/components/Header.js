@@ -20,7 +20,7 @@ function Header() {
     variables: { _id: auth.loggedIn() ? auth.getProfile().data._id : "" },
   });
   const currentUser = data_user?.user || {}
-  console.log(currentUser)
+
 
   return (
     <div className="navbar bg-base-100 fixed z-10">

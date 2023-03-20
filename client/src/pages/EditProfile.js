@@ -88,7 +88,6 @@ export default function EditProfile() {
             const { data } = await updateUser({
                 variables: { firstName, lastName, email, phoneNumber, username, _id: auth.getProfile().data._id },
             });
-            console.log(data);
             navigate(`/profile/${auth.getProfile().data._id}`)
             
             // Reset form data if desired

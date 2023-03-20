@@ -1,8 +1,11 @@
 import React from 'react';
 import { useMutation } from '@apollo/client';
 import { DELETE_POST } from '../utils/mutations';
+import { useNavigate } from "react-router-dom";
 
 export default function ProfileCard(props) {
+    const navigate = useNavigate();
+
     function currencyFormat(num) {
         return '$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
     }
@@ -34,7 +37,9 @@ export default function ProfileCard(props) {
                     <p>{currencyFormat(props.price)}</p>
                     <p className="overflow-hidden text-ellipsis whitespace-nowrap">{props.description}</p>
                     <div className="card-actions justify-end">
-                        <button className="btn btn-primary">Edit</button>
+                        <button onClick={() => {
+              navigate(`/editpost/${props.edit}`)
+            }} className="btn btn-primary">Edit</button>
                     </div>
                 </div>
             </div>
