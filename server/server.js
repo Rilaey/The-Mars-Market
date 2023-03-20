@@ -4,6 +4,8 @@ const { ApolloServer } = require("apollo-server-express");
 const path = require("path");
 const db = require("./config/connection");
 
+const PORT = process.env.PORT || 8080;
+
 const { authMiddleware } = require("./utils/auth");
 const { typeDefs, resolvers } = require("./schemas");
 
@@ -16,9 +18,14 @@ const server = new ApolloServer({
 
 const bodyParser = require("body-parser");
 
-app.use(bodyParser.json({limit: "50mb"}));
-app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
-
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(
+  bodyParser.urlencoded({
+    limit: "50mb",
+    extended: true,
+    parameterLimit: 50000
+  })
+);
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -38,10 +45,10 @@ const startApolloServer = async (typeDefs, resolvers) => {
   server.applyMiddleware({ app });
 
   db.once("open", () => {
-    app.listen(process.env.PORT, () => {
-      console.log(`API server running on port ${process.env.PORT}!`);
+    app.listen(PORT, () => {
+      console.log(`API server running on port ${PORT}!`);
       console.log(
-        `Use GraphQL at http://localhost:${process.env.PORT}${server.graphqlPath}`
+        `Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`
       );
     });
   });
