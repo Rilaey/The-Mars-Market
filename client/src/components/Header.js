@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import { QUERY_ALL_TAGS, QUERY_USER } from "../utils/queries";
 import { Link } from "react-router-dom";
 import auth from "../utils/auth";
+import logo from "../assets/logo.png"
 
 function Header() {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ function Header() {
     <div className="navbar bg-base-100 fixed z-10">
       <div className="flex-1">
         <a href="/" className="btn btn-ghost normal-case text-xl">
-        The Mars Market
+        <img className="w-[50px] h-[50px]" src={logo} />The Mars Market
         </a>
       </div>
       <div className="flex-none gap-3">
