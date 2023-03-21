@@ -110,12 +110,18 @@ const resolvers = {
       const user = await User.findByIdAndUpdate(id, input, { new: true });
       return user;
     },
-    deleteUser: async (parent, { id }) => {
-      const user = await User.findByIdAndRemove(id);
+    updateUser: async (parent, { _id, firstName, lastName, phoneNumber, email, username }) => {
+      const user = await User.findOne({ _id });
+      user.firstName = firstName
+      user.lastName = lastName
+      user.phoneNumber = phoneNumber
+      user.email = email
+      user.username = username
+      await user.save()
       return user;
     },
-    addProfilePicture: async (parent, { id, profilePicture }) => {
-      const user = await User.findById(id);
+    addProfilePicture: async (parent, { _id, profilePicture }) => {
+      const user = await User.findOne({ _id });
       user.profilePicture = profilePicture;
       await user.save();
       return user;
@@ -170,16 +176,21 @@ const resolvers = {
         };
       }
     },
-    createPost: async (parent, args) => {
-      const { title, description, price, tags, postImgs } = args;
-      const post = new Post({
+    createPost: async (parent, { title, description, price, tags, postImgs, user }, context) => {
+      const post = await Post.create({
         title,
         description,
         price,
         tags,
-        postImgs
+        postImgs,
+        user
       });
-      await post.save();
+
+      await User.findOneAndUpdate(
+        { _id: user},
+        { $addToSet: { posts: post._id } }
+      );
+
       return post;
     },
     updatePost: async (parent, args) => {

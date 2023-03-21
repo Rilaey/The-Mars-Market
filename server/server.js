@@ -4,6 +4,8 @@ const { ApolloServer } = require("apollo-server-express");
 const path = require("path");
 const db = require("./config/connection");
 
+const PORT = process.env.PORT || 8080;
+
 const { authMiddleware } = require("./utils/auth");
 const { typeDefs, resolvers } = require("./schemas");
 
@@ -14,110 +16,26 @@ const server = new ApolloServer({
   context: authMiddleware
 });
 
-// multiple image uploading for posts
-const multer = require("multer");
 const bodyParser = require("body-parser");
-const postImage = require("./models/Post");
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-
-const postStorage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "post-uploads");
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, file.fieldname + "-" + uniqueSuffix);
-  }
-});
-
-const postUpload = multer({
-  storage: postStorage
-}).array("postImgs", 6);
-
-app.post("/postUpload", (req, res) => {
-  postUpload(req, res, (err) => {
-    if (err) {
-      console.log(err);
-    } else {
-      const postImgs = new postImage({
-        // do i need to add tags and comments fields?
-        title: req.body.title,
-        description: req.body.description,
-        price: req.body.price,
-        postImgs: req.files.map((file) => {
-          return file.originalname
-        })
-      });
-      postImgs
-        .save()
-        .then(() => {
-          res.send(postImgs);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  });
-});
-
-// single image uploading for profile picture
-const userImage = require("./models/User");
-
-const userStorage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "profile-pictures");
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, file.fieldname + "-" + uniqueSuffix);
-  }
-});
-
-const profileUpload = multer({
-  storage: userStorage
-}).single("profilePicture");
-
-app.post("/profileUpload", (req, res) => {
-  profileUpload(req, res, (err) => {
-    if (err) {
-      console.log(err);
-    } else {
-      const profilePicture = new userImage({
-        // do i need to add tags and comments fields?
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        password: req.body.password,
-        username: req.body.username,
-        profilePicture: {
-          data: req.file.filename,
-          contentType: "profilePicture"
-        }
-      });
-      profilePicture
-        .save()
-        .then(() => {
-          res.send(profilePicture);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  });
-});
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(
+  bodyParser.urlencoded({
+    limit: "50mb",
+    extended: true,
+    parameterLimit: 50000
+  })
+);
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'post-uploads')))
-console.log(__dirname)
+//app.use(express.static(path.join(__dirname, 'post-uploads')))
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/build")));
 }
 
-app.get("/", (req, res) => {
+app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
 
@@ -127,10 +45,10 @@ const startApolloServer = async (typeDefs, resolvers) => {
   server.applyMiddleware({ app });
 
   db.once("open", () => {
-    app.listen(process.env.PORT, () => {
-      console.log(`API server running on port ${process.env.PORT}!`);
+    app.listen(PORT, () => {
+      console.log(`API server running on port ${PORT}!`);
       console.log(
-        `Use GraphQL at http://localhost:${process.env.PORT}${server.graphqlPath}`
+        `Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`
       );
     });
   });

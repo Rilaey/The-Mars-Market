@@ -10,6 +10,13 @@ export const QUERY_USER = gql`
       phoneNumber
       username
       profilePicture
+      posts {
+        _id
+        title
+        description
+        price
+        postImgs
+      }
     }
   }
 `;

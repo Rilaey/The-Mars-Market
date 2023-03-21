@@ -40,31 +40,30 @@ export const CREATE_USER = gql`
 `;
 
 export const UPDATE_USER = gql`
-  mutation updateUser(
-    $id: ID!
-    $firstName: String!
-    $lastName: String!
-    $email: String!
-    $password: String!
-    $username: String!
-    $phoneNumber: String!
+mutation updateUser(
+  $_id: ID!
+  $firstName: String!
+  $lastName: String!
+  $email: String!
+  $username: String!
+  $phoneNumber: String!
+) {
+  updateUser(
+    _id: $_id
+    firstName: $firstName
+    lastName: $lastName
+    email: $email
+    username: $username
+    phoneNumber: $phoneNumber
   ) {
-    updateUser(
-      id: $ID
-      firstName: $firstName
-      lastName: $lastName
-      email: $email
-      password: $password
-      username: $username
-      phoneNumber: $phoneNumber
-    ) {
-      token
-      user {
-        _id
-        username
-      }
-    }
+    _id
+    firstName
+    lastName
+    email
+    username
+    phoneNumber
   }
+}
 `;
 
 export const DELETE_USER = gql`
@@ -81,33 +80,30 @@ export const ADD_PROFILE_PICTURE = gql`
     $profilePicture: String!
   ) {
     addProfilePicture(
-      id: $addProfilePictureId
+      _id: $addProfilePictureId
       profilePicture: $profilePicture
     ) {
-      id
+      profilePicture
     }
   }
 `;
 
 export const CREATE_POST = gql`
-  mutation createPost(
-    $title: String!
-    $description: String!
-    $price: Float!
-    $postImgs: [String!]
-  ) {
-    createPost(
-      title: $title
-      description: $description
-      price: $price
-      postImgs: $postImgs
-    ) {
+mutation createPost($user: ID!, $title: String!, $description: String!, $price: Float!, $postImgs: [String]!) {
+  createPost(user: $user, title: $title, description: $description, price: $price, postImgs: $postImgs) {
+    user {
       _id
-      title
-      description
-      postImgs
+      phoneNumber
+      email
+      username
     }
+    _id
+    title
+    description
+    price
+    postImgs
   }
+}
 `;
 
 export const UPDATE_POST = gql`
@@ -133,7 +129,7 @@ export const UPDATE_POST = gql`
 export const DELETE_POST = gql`
   mutation deletePost($deletePostId: ID!) {
     deletePost(id: $deletePostId) {
-      id
+      _id
     }
   }
 `;

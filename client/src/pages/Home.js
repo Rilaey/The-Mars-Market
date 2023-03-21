@@ -9,7 +9,9 @@ export default function Home() {
   const { loading, data } = useQuery(QUERY_POSTS);
 
   if (loading) {
-    return <div>LOADING</div>
+    return <div className='flex justify-center items-center text-center min-h-[95vh]'>
+      <button className="btn btn-square loading"></button>
+      </div>
   }
   const posts = data?.posts || {};
 
@@ -22,20 +24,19 @@ export default function Home() {
 
   const filteredItems = getFilteredItems(query, posts)
 
-
-
   return (
-    <><div className="flex items-center form-control pt-[48px]">
+    <><div className='min-h-screen bg-base-200'>
+    <div className="flex items-center form-control pt-[48px]">
       <input
         type="text"
         placeholder="Search for item"
-        className="input input-bordered w-full max-w-xs" 
+        className="input input-bordered w-full max-w-xs"
         onChange={e => setQuery(e.target.value)} />
     </div>
       <div className='card-container justify-center items-center flex flex-wrap'>
         {filteredItems.map(product => (
           <Card className="card" post={product._id} key={product._id} title={product.title} description={product.description} price={product.price} image={product?.postImgs[0]} />
         ))}
-      </div></>
+      </div></div></>
   )
 }

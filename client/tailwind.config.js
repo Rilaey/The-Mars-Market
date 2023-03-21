@@ -2,7 +2,12 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {}
+    extend: {
+      screens: {
+        '-sm': { max: '639px' },
+        // => @media (max-width: 639px) { ... }
+      },
+    },
   },
   plugins: [require("daisyui")],
   daisyui: {

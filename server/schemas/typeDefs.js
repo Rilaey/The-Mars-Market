@@ -27,7 +27,7 @@ const typeDefs = gql`
     title: String!
     description: String!
     price: Float!
-    postImgs: [String]
+    postImgs: [String]!
     createdAt: String!
     tags: [Tag]!
     comments: [Comment]!
@@ -65,12 +65,14 @@ const typeDefs = gql`
   }
 
   input UserInput {
-    firstName: String!
-    lastName: String!
-    email: String!
-    password: String!
-    username: String!
-    phoneNumber: String!
+    _id: ID
+    firstName: String
+    lastName: String
+    email: String
+    password: String
+    username: String
+    phoneNumber: String
+    profilePicture: String
   }
 
   type Query {
@@ -87,16 +89,17 @@ const typeDefs = gql`
   type Mutation {
     login(email: String!, password: String!): Auth
     createUser(firstName: String!, lastName: String!, email: String!, phoneNumber: String!, password: String!, username: String!, profilePicture: String): Auth
-    updateUser(id: ID!, input: UserInput!): User!
+    updateUser(_id: ID!, firstName: String, lastName: String, email: String, phoneNumber: String, username: String): User
     deleteUser(id: ID!): User!
-    addProfilePicture(id: ID!, profilePicture: String!): User!
+    addProfilePicture(_id: ID!, profilePicture: String!): User!
     createPost(
+      user: ID!
       title: String!
       description: String!
       price: Float!
-      postImgs: [String!]
+      postImgs: [String]!
       tags: [ID!]
-    ): Post!
+    ): Post
     updatePost(
       id: ID!
       title: String!

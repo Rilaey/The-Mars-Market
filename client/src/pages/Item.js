@@ -18,7 +18,9 @@ export default function Item() {
 
   if (query2Result.loading || loading) {
     //insert loading bar
-    return <div>LOADING</div>;
+    return <div className='flex justify-center items-center text-center min-h-[95vh]'> 
+    <button className="btn btn-square loading"></button>
+    </div>;
   }
 
   const post = data?.post || {};
@@ -71,7 +73,7 @@ export default function Item() {
               );
             })}
           </div>
-          <div>
+          <div className="lg:w-1/2">
             <h1 className="text-5xl font-bold flex items-center">
               {post.title}
             </h1>
