@@ -19,7 +19,7 @@ export default function Card(props) {
                 <div className="card-actions justify-end">
                     <button onClick={() => {
                         navigate("/item/" + props.post)
-                    }} className="btn btn-primary">Buy Now!</button>
+                    }} className="btn btn-primary">View Listing</button>
                 </div>
             </div>
         </div>
