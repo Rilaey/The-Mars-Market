@@ -80,10 +80,10 @@ export default function Item() {
             <div className="divider"></div>
             <div className="pb-2 flex items-center">${post.price}</div>
             <p className="py-2 flex items-center">{post.description}</p>
-            <p className="py-2 flex items-center">
+            <a href={`mailto:${post.user.email}`} className="py-2 flex items-center link link-hover link-primary">
               <AiOutlineMail className="mr-[8px] text-[20px]" />{" "}
               {post.user.email}
-            </p>
+            </a>
             <p className="py-2 flex items-center">
               <HiPhone className="mr-[8px] text-[20px]" />{" "}
               {post.user.phoneNumber}
