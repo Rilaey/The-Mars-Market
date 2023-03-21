@@ -5,6 +5,7 @@ import { QUERY_POST, QUERY_POSTS } from "../utils/queries";
 import { useQuery } from "@apollo/client";
 import Card from "../components/Card";
 import Slide from "../components/Slide";
+import auth from "../utils/auth";
 
 export default function Item() {
   const navigate = useNavigate();
@@ -18,9 +19,11 @@ export default function Item() {
 
   if (query2Result.loading || loading) {
     //insert loading bar
-    return <div className='flex justify-center items-center text-center min-h-[95vh]'> 
-    <button className="btn btn-square loading"></button>
-    </div>;
+    return (
+      <div className="flex justify-center items-center text-center min-h-[95vh]">
+        <button className="btn btn-square loading"></button>
+      </div>
+    );
   }
 
   const post = data?.post || {};
@@ -90,9 +93,25 @@ export default function Item() {
             </p>
             <div>
               <button className="my-2 mx-3 btn btn-primary">Buy Now</button>
-              <button className="my-2 btn btn-primary" onClick={() => {
-                navigate(`/profile/${post.user._id}`)
-              }}>Seller's Profile</button>
+              {auth.loggedIn() ? (
+                <button
+                  className="my-2 btn btn-primary"
+                  onClick={() => {
+                    navigate(`/profile/${post.user._id}`);
+                  }}
+                >
+                  Seller's Profile
+                </button>
+              ) : (
+                <button
+                  className="my-2 btn btn-primary"
+                  onClick={() => {
+                    navigate(`/signup`);
+                  }}
+                >
+                  Log in to view sellers profile
+                </button>
+              )}
             </div>
           </div>
         </div>
