@@ -7,6 +7,7 @@ import auth from "../utils/auth";
 export default function SignIn() {
   const [formState, setFormState] = useState({ email: "", password: "" });
   const [login, { error, data }] = useMutation(LOGIN_USER);
+  const [errors, setErrors] = useState({ email: "", password: "" }); // new state for form errors
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -17,22 +18,45 @@ export default function SignIn() {
     });
   };
 
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors = { email: "", password: "" };
+
+    // check if email is empty or not a valid email format
+    if (!formState.email || !/\S+@\S+\.\S+/.test(formState.email)) {
+      newErrors.email = "Please enter a valid email address.";
+      isValid = false;
+    }
+
+    // check if password is empty
+    if (!formState.password) {
+      newErrors.password = "Please enter a password.";
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     console.log(formState);
-    try {
-      const { data } = await login({
-        variables: { ...formState }
-      });
 
-      auth.login(data.login.token);
+    if (validateForm()) {
+      try {
+        const { data } = await login({
+          variables: { ...formState }
+        });
 
-      setFormState({
-        email: "",
-        password: ""
-      });
-    } catch (e) {
-      console.error(e);
+        auth.login(data.login.token);
+
+        setFormState({
+          email: "",
+          password: ""
+        });
+      } catch (e) {
+        console.error(e);
+      }
     }
   };
 
@@ -48,11 +72,12 @@ export default function SignIn() {
               <input
                 type="text"
                 placeholder="Email"
-                className="input input-bordered"
+                className={`input input-bordered ${errors.email ? 'input-error' : ''}`} // add input-error class if there's an error
                 name="email"
                 value={formState.email}
                 onChange={handleChange}
               />
+              {errors.email && <p className="text-xs text-error">{errors.email}</p>} {/* show error message */}
             </div>
             <div className="form-control">
               <label className="label">
@@ -61,11 +86,12 @@ export default function SignIn() {
               <input
                 type="password"
                 placeholder="Password"
-                className="input input-bordered"
+                className={`input input-bordered ${errors.password ? 'input-error' : ''}`} // add input-error class if there's an error
                 name="password"
                 value={formState.password}
                 onChange={handleChange}
               />
+              {errors.password && <p className="text-xs text-error">{errors.password}</p>} {/* show error message */}
               <label className="label">
                 <a href="/signup" className="label-text-alt link link-hover">
                   Create an account

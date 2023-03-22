@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_USER } from "../utils/queries";
 import { UPDATE_USER } from "../utils/mutations";
@@ -83,6 +83,9 @@ export default function EditProfile() {
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
+        if (!validateForm()) {
+            return;
+        }
         try {
             const { firstName, lastName, email, phoneNumber, username, _id } = formState;
             const { data } = await updateUser({
@@ -96,6 +99,15 @@ export default function EditProfile() {
         }
     };
 
+    useEffect(() => {
+        // Get the user ID from the auth object
+        const userId = auth.getProfile().data._id;
+        console.log(`User ID: ${userId}`);
+      }, []);
+    
+      const handleCancel = () => {
+        navigate(`/profile/${auth.getProfile().data._id}`);
+      };
 
 
     return (
@@ -191,9 +203,10 @@ export default function EditProfile() {
                         </div>
                         <div className="form-control mt-6">
                             <button className="btn btn-primary" type="submit">Update Account Info</button>
+                            <button className="btn btn-error mt-4" onClick={handleCancel}>Cancel</button>
                         </div>
                     </form>
-                    {errors && (
+                        {errors && (
                         <div className="my-3 p-3 bg-danger text-white">{errors.message}</div>
                     )}
                 </div>
