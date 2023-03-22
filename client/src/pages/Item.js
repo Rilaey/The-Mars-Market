@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { AiOutlineMail } from "react-icons/ai";
 import { HiPhone } from "react-icons/hi";
 import { useParams, useNavigate } from "react-router-dom";
@@ -6,8 +7,11 @@ import { useQuery } from "@apollo/client";
 import Card from "../components/Card";
 import Slide from "../components/Slide";
 import auth from "../utils/auth";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 export default function Item() {
+  const [checkout, setCheckout] = useState(false);
+
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -27,6 +31,10 @@ export default function Item() {
   }
 
   const post = data?.post || {};
+
+  const amount = post.price;
+  const currency = "USD";
+  const style = { layout: "vertical" };
 
   return (
     <>
@@ -83,7 +91,10 @@ export default function Item() {
             <div className="divider"></div>
             <div className="pb-2 flex items-center">${post.price}</div>
             <p className="py-2 flex items-center">{post.description}</p>
-            <a href={`mailto:${post.user.email}`} className="py-2 flex items-center link link-hover link-primary">
+            <a
+              href={`mailto:${post.user.email}`}
+              className="py-2 flex items-center link link-hover link-primary"
+            >
               <AiOutlineMail className="mr-[8px] text-[20px]" />{" "}
               {post.user.email}
             </a>
@@ -92,7 +103,49 @@ export default function Item() {
               {post.user.phoneNumber}
             </p>
             <div>
-              <button className="my-2 mx-3 btn btn-primary">Buy Now</button>
+              {checkout ? (
+                <PayPalScriptProvider
+                  options={{
+                    "client-id":process.env.REACT_APP_PAYPAL_CLIENT
+                      // "AQ31X-wl86eQIqnwKHEr5OoSGCnpDHbNF4UTahINI8KJcjPbCKc0s3g6Wyp5qu3EtAA5CQlGiyPu0yI0"
+                  }}
+                >
+                  <PayPalButtons
+                    style={style}
+                    disabled={false}
+                    forceReRender={[amount, currency, style]}
+                    fundingSource={undefined}
+                    createOrder={(data, actions) => {
+                      return actions.order.create({
+                        purchase_units: [
+                          {
+                            description: post.description,
+                            amount: {
+                              currency_code: currency,
+                              value: amount
+                            }
+                          }
+                        ]
+                      });
+                    }}
+                    onApprove={(data, actions) => {
+                      return actions.order.capture().then((details) => {
+                        const name = details.payer.name.given_name;
+                        alert(`Transaction completed by ${name}`);
+                      });
+                    }}
+                  />
+                </PayPalScriptProvider>
+              ) : (
+                <button
+                  className="my-2 mx-2 btn btn-primary"
+                  onClick={() => {
+                    setCheckout(true);
+                  }}
+                >
+                  Buy Now!
+                </button>
+              )}
               {auth.loggedIn() ? (
                 <button
                   className="my-2 btn btn-primary"
