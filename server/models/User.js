@@ -37,6 +37,9 @@ const userSchema = new Schema({
   profilePicture: {
     type: String
   },
+  isAdmin: {
+    type: Boolean
+  },
   createdAt: {
     type: Date,
     default: Date.now,
