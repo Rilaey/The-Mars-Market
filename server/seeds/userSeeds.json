@@ -1,5 +1,15 @@
 [
     {
+        "firstName": "Market",
+        "lastName": "Master",
+        "email": "marketmaster@gmail.com",
+        "password": "EFLyq9CfVb389OR*Ru$r2PeAa4BiBvun",
+        "username": "MarketMaster",
+        "phoneNumber": "555-555-5555",
+        "profilePicture": "https://images.pexels.com/photos/1619918/pexels-photo-1619918.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "isAdmin": true
+    },
+    {
         "firstName": "Tommy",
         "lastName": "Cat",
         "email": "tommycat@gmail.com",

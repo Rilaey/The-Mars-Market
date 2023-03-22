@@ -1,5 +1,6 @@
 const { User, Post, Tag, Comment } = require("../models");
 const { GraphQLScalarType, Kind } = require("graphql");
+const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require("../utils/auth");
 
 const resolvers = {

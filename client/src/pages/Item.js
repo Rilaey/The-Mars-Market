@@ -107,7 +107,6 @@ export default function Item() {
                 <PayPalScriptProvider
                   options={{
                     "client-id":process.env.REACT_APP_PAYPAL_CLIENT
-                      // "AQ31X-wl86eQIqnwKHEr5OoSGCnpDHbNF4UTahINI8KJcjPbCKc0s3g6Wyp5qu3EtAA5CQlGiyPu0yI0"
                   }}
                 >
                   <PayPalButtons
