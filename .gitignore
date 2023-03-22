@@ -7,3 +7,4 @@ server/profile-pictures
 .env.production.local
 .env.local
 sever/.env
+client/.env
