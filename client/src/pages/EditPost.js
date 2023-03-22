@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { UPDATE_POST } from '../utils/mutations';
 import { useMutation, useQuery } from "@apollo/client";
 import { QUERY_POST } from "../utils/queries";
@@ -7,6 +7,24 @@ import { useParams, useNavigate } from "react-router-dom";
 
 export default function CreatePost() {
     const navigate = useNavigate();
+    const [formErrors, setFormErrors] = useState({});
+
+    const validateForm = () => {
+        const errors = {};
+        if (!formState.title) {
+            errors.title = 'Title is required';
+        }
+        if (!formState.description) {
+            errors.description = 'Description is required';
+        }
+        if (!formState.price || isNaN(formState.price)) {
+            errors.price = 'Price is required and must be a number';
+        }
+        setFormErrors(errors);
+        return Object.keys(errors).length === 0;
+    };
+
+
     const { id } = useParams();
     const { loading, data } = useQuery(QUERY_POST, {
         variables: { id: id },
@@ -33,22 +51,35 @@ export default function CreatePost() {
         });
     };
 
+    useEffect(() => {
+        // Get the user ID from the auth object
+        const userId = auth.getProfile().data._id;
+        console.log(`User ID: ${userId}`);
+      }, []);
+    
+      const handleCancel = () => {
+        navigate(`/profile/${auth.getProfile().data._id}`);
+      };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        try {
-            const { title, description, price, _id } = formState;
-            const priceAsFloat = parseFloat(price);
-            const { data } = await updatePost({
-                variables: { updatePostId: _id, title, description, price: priceAsFloat },
-            });
-            console.log('Success!');
-            navigate(`/profile/${auth.getProfile().data._id}`);
-            window.location.reload();
-        } catch (error) {
-            console.error(error);
+        if (validateForm()) {
+            try {
+                const { title, description, price, _id } = formState;
+                const priceAsFloat = parseFloat(price);
+                const { data } = await updatePost({
+                    variables: { updatePostId: _id, title, description, price: priceAsFloat },
+                });
+                console.log('Success!');
+                navigate(`/profile/${auth.getProfile().data._id}`);
+                window.location.reload();
+            } catch (error) {
+                console.error(error);
+            }
         }
     };
+
 
     return (
         <div className="hero min-h-screen bg-base-200">
@@ -65,11 +96,12 @@ export default function CreatePost() {
                                 <input
                                     type="text"
                                     placeholder="title"
-                                    className="input input-bordered"
+                                    className={`input input-bordered ${formErrors.title ? 'input-error' : ''}`}
                                     name="title"
                                     value={formState.title}
                                     onChange={handleChange}
                                 />
+                                {formErrors.title && <p className="text-xs text-error">{formErrors.title}</p>}
                             </div>
                             <div className="form-control">
                                 <label className="label">
@@ -78,28 +110,30 @@ export default function CreatePost() {
                                 <input
                                     type="text"
                                     placeholder="price"
-                                    className="input input-bordered"
+                                    className={`input input-bordered ${formErrors.price ? 'input-error' : ''}`}
                                     name="price"
                                     value={formState.price}
                                     onChange={handleChange}
                                 />
+                                {formErrors.price && <p className="text-xs text-error">{formErrors.price}</p>}
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Description</span>
                                 </label>
                                 <textarea
-                                    type="text"
-                                    className="input input-bordered"
+                                    className={`input input-bordered ${formErrors.description ? 'input-error' : ''}`}
                                     name="description"
                                     value={formState.description}
                                     onChange={handleChange}
                                 />
+                                {formErrors.description && <p className="text-xs text-error">{formErrors.description}</p>}
                             </div>
                             <div className="form-control mt-6">
                                 <button className="btn btn-primary" type="submit">
                                     Save Changes
                                 </button>
+                                <button className="btn btn-error mt-4" onClick={handleCancel}>Cancel</button>
                             </div>
                         </div>
                     </form>
