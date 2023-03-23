@@ -22,7 +22,9 @@ function Header() {
   });
   const currentUser = data_user?.user || {}
 
-
+  if(loading_user) {
+    return <div>Loading...</div>
+  }
   return (
     <div className="navbar bg-base-100 fixed z-10">
       <div className="flex-1">
@@ -43,7 +45,7 @@ function Header() {
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
-                {auth.loggedIn() ? (<img src={currentUser.profilePicture} />) : <img src={"https://villagesonmacarthur.com/wp-content/uploads/2020/12/Blank-Avatar.png"} />}
+                {auth.getProfile().data.profilePicture ? (<img src={currentUser.profilePicture} />) : <img src={"https://villagesonmacarthur.com/wp-content/uploads/2020/12/Blank-Avatar.png"} />}
 
               </div>
             </label>
