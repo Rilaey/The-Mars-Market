@@ -8,3 +8,4 @@ server/profile-pictures
 .env.local
 sever/.env
 client/.env
+sever/seeds/userSeeds.json

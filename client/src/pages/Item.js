@@ -3,7 +3,8 @@ import { AiOutlineMail } from "react-icons/ai";
 import { HiPhone } from "react-icons/hi";
 import { useParams, useNavigate } from "react-router-dom";
 import { QUERY_POST, QUERY_POSTS } from "../utils/queries";
-import { useQuery } from "@apollo/client";
+import { DELETE_POST } from '../utils/mutations';
+import { useQuery, useMutation } from "@apollo/client";
 import Card from "../components/Card";
 import Slide from "../components/Slide";
 import auth from "../utils/auth";
@@ -21,6 +22,8 @@ export default function Item() {
 
   const query2Result = useQuery(QUERY_POSTS);
 
+  const [deletePost, { loading:loading_delete, error }] = useMutation(DELETE_POST);
+
   if (query2Result.loading || loading) {
     //insert loading bar
     return (
@@ -31,6 +34,18 @@ export default function Item() {
   }
 
   const post = data?.post || {};
+
+  const handleDelete = () => {
+    deletePost({ variables: { deletePostId: id } })
+    .then(() => {
+        navigate('/') // Reloads the page after the mutation is completed
+        window.location.reload();
+        alert(`Transaction sent!`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+};
 
   const amount = post.price;
   const currency = "USD";
@@ -128,9 +143,8 @@ export default function Item() {
                       });
                     }}
                     onApprove={(data, actions) => {
-                      return actions.order.capture().then((details) => {
-                        const name = details.payer.name.given_name;
-                        alert(`Transaction completed by ${name}`);
+                      return actions.order.capture().then(() => {
+                        handleDelete();
                       });
                     }}
                   />
