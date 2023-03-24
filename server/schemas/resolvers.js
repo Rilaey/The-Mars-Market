@@ -75,7 +75,7 @@ const resolvers = {
   Mutation: {
     createUser: async (
       parent,
-      { firstName, lastName, email, phoneNumber, password, username, profilePicture }
+      { firstName, lastName, email, phoneNumber, password, username, profilePicture, isAdmin, isDarkMode }
     ) => {
       const user = new User({
         firstName,
@@ -84,7 +84,9 @@ const resolvers = {
         phoneNumber,
         password,
         username,
-        profilePicture
+        profilePicture,
+        isAdmin,
+        isDarkMode
       });
       const token = signToken(user);
       await user.save();
@@ -130,11 +132,7 @@ const resolvers = {
     darkMode: async (parent, { _id, isDarkMode }) => {
       const user = await User.findOne({ _id });
 
-      if(user.isDarkMode) {
-        user.isDarkMode === false
-      } else if(user.isDarkMode === false) {
-        user.isDarkMode === true
-      };
+      user.isDarkMode = true
 
       await user.save()
       return user
