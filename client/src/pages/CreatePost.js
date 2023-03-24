@@ -118,6 +118,7 @@ export default function CreatePost() {
                 </label>
                 <textarea
                   type="text"
+                  placeholder="description"
                   className={`input input-bordered ${formErrors.description ? 'input-error' : ''}`}
                   name="description"
                   value={formState.description}
