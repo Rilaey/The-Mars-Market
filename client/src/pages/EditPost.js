@@ -56,7 +56,7 @@ export default function CreatePost() {
         const userId = auth.getProfile().data._id;
         console.log(`User ID: ${userId}`);
       }, []);
-    
+
       const handleCancel = () => {
         navigate(`/profile/${auth.getProfile().data._id}`);
       };
@@ -124,6 +124,7 @@ export default function CreatePost() {
                                 <textarea
                                     className={`input input-bordered ${formErrors.description ? 'input-error' : ''}`}
                                     name="description"
+                                    placeholder="description"
                                     value={formState.description}
                                     onChange={handleChange}
                                 />

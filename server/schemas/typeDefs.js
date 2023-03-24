@@ -87,6 +87,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
+    darkMode(_id: ID!, isDarkMode: Boolean!): User!
     login(email: String!, password: String!): Auth
     createUser(firstName: String!, lastName: String!, email: String!, phoneNumber: String!, password: String!, username: String!, profilePicture: String): Auth
     updateUser(_id: ID!, firstName: String, lastName: String, email: String, phoneNumber: String, username: String): User

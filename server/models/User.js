@@ -38,7 +38,12 @@ const userSchema = new Schema({
     type: String
   },
   isAdmin: {
-    type: Boolean
+    type: Boolean,
+    default: false,
+  },
+  isDarkMode: {
+    type: Boolean,
+    default: false
   },
   createdAt: {
     type: Date,
