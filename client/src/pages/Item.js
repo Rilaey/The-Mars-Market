@@ -1,12 +1,18 @@
+import { useState } from "react";
 import { AiOutlineMail } from "react-icons/ai";
 import { HiPhone } from "react-icons/hi";
 import { useParams, useNavigate } from "react-router-dom";
 import { QUERY_POST, QUERY_POSTS } from "../utils/queries";
-import { useQuery } from "@apollo/client";
+import { DELETE_POST } from '../utils/mutations';
+import { useQuery, useMutation } from "@apollo/client";
 import Card from "../components/Card";
 import Slide from "../components/Slide";
+import auth from "../utils/auth";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 export default function Item() {
+  const [checkout, setCheckout] = useState(false);
+
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -16,14 +22,34 @@ export default function Item() {
 
   const query2Result = useQuery(QUERY_POSTS);
 
+  const [deletePost, { loading:loading_delete, error }] = useMutation(DELETE_POST);
+
   if (query2Result.loading || loading) {
     //insert loading bar
-    return <div className='flex justify-center items-center text-center min-h-[95vh]'> 
-    <button className="btn btn-square loading"></button>
-    </div>;
+    return (
+      <div className="flex justify-center items-center text-center min-h-[95vh]">
+        <button className="btn btn-square loading"></button>
+      </div>
+    );
   }
 
   const post = data?.post || {};
+
+  const handleDelete = () => {
+    deletePost({ variables: { deletePostId: id } })
+    .then(() => {
+        navigate('/') // Reloads the page after the mutation is completed
+        window.location.reload();
+        alert(`Transaction sent!`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+};
+
+  const amount = post.price;
+  const currency = "USD";
+  const style = { layout: "vertical" };
 
   return (
     <>
@@ -80,19 +106,78 @@ export default function Item() {
             <div className="divider"></div>
             <div className="pb-2 flex items-center">${post.price}</div>
             <p className="py-2 flex items-center">{post.description}</p>
-            <p className="py-2 flex items-center">
+            <a
+              href={`mailto:${post.user.email}`}
+              className="py-2 flex items-center link link-hover link-primary"
+            >
               <AiOutlineMail className="mr-[8px] text-[20px]" />{" "}
               {post.user.email}
-            </p>
+            </a>
             <p className="py-2 flex items-center">
               <HiPhone className="mr-[8px] text-[20px]" />{" "}
               {post.user.phoneNumber}
             </p>
             <div>
-              <button className="my-2 mx-3 btn btn-primary">Buy Now</button>
-              <button className="my-2 btn btn-primary" onClick={() => {
-                navigate(`/profile/${post.user._id}`)
-              }}>Seller's Profile</button>
+              {checkout ? (
+                <PayPalScriptProvider
+                  options={{
+                    "client-id":process.env.REACT_APP_PAYPAL_CLIENT
+                  }}
+                >
+                  <PayPalButtons
+                    style={style}
+                    disabled={false}
+                    forceReRender={[amount, currency, style]}
+                    fundingSource={undefined}
+                    createOrder={(data, actions) => {
+                      return actions.order.create({
+                        purchase_units: [
+                          {
+                            description: post.description,
+                            amount: {
+                              currency_code: currency,
+                              value: amount
+                            }
+                          }
+                        ]
+                      });
+                    }}
+                    onApprove={(data, actions) => {
+                      return actions.order.capture().then(() => {
+                        handleDelete();
+                      });
+                    }}
+                  />
+                </PayPalScriptProvider>
+              ) : (
+                <button
+                  className="my-2 mx-2 btn btn-primary"
+                  onClick={() => {
+                    setCheckout(true);
+                  }}
+                >
+                  Buy Now!
+                </button>
+              )}
+              {auth.loggedIn() ? (
+                <button
+                  className="my-2 btn btn-primary"
+                  onClick={() => {
+                    navigate(`/profile/${post.user._id}`);
+                  }}
+                >
+                  Seller's Profile
+                </button>
+              ) : (
+                <button
+                  className="my-2 btn btn-primary"
+                  onClick={() => {
+                    navigate(`/signup`);
+                  }}
+                >
+                  Log in to view sellers profile
+                </button>
+              )}
             </div>
           </div>
         </div>

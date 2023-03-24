@@ -1,5 +1,5 @@
 import FileBase64 from "react-file-base64";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CREATE_POST } from "../utils/mutations";
 import { useMutation } from "@apollo/client";
 import auth from "../utils/auth";
@@ -7,7 +7,8 @@ import { useNavigate } from "react-router-dom";
 
 export default function CreatePost() {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
+  const [formErrors, setFormErrors] = useState({});
+  const [formState, setFormState] = useState({
     title: "",
     description: "",
     price: "",
@@ -15,17 +16,35 @@ export default function CreatePost() {
     user: auth.getProfile().data._id
   });
 
+
+  const validateForm = () => {
+    const errors = {};
+    if (!formState.title) {
+        errors.title = 'Title is required';
+    }
+    if (!formState.description) {
+        errors.description = 'Description is required';
+    }
+    if (!formState.price || isNaN(formState.price)) {
+        errors.price = 'Price is required and must be a number';
+    }
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+};
+
   const [createPost, { error, data }] = useMutation(CREATE_POST);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+    setFormState((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (validateForm()) {
     try {
-      const { title, description, price, postImgs, user } = formData;
+      const { title, description, price, postImgs, user } = formState;
       const priceAsFloat = parseFloat(price);
       const { data } = await createPost({
         variables: {
@@ -43,6 +62,17 @@ export default function CreatePost() {
     } catch (error) {
       console.error(error);
     }
+  }
+  };
+
+  useEffect(() => {
+    // Get the user ID from the auth object
+    const userId = auth.getProfile().data._id;
+    console.log(`User ID: ${userId}`);
+  }, []);
+
+  const handleCancel = () => {
+    navigate(`/profile/${auth.getProfile().data._id}`);
   };
 
   return (
@@ -59,26 +89,28 @@ export default function CreatePost() {
                   <span className="label-text">Title</span>
                 </label>
                 <input
-                  type="text"
-                  placeholder="title"
-                  className="input input-bordered"
-                  name="title"
-                  value={formData.title}
-                  onChange={handleChange}
+                type="text"
+                placeholder="title"
+                className={`input input-bordered ${formErrors.title ? 'input-error' : ''}`}
+                name="title"
+                value={formState.title}
+                onChange={handleChange}
                 />
+                {formErrors.title && <p className="text-xs text-error">{formErrors.title}</p>}
               </div>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Price</span>
                 </label>
                 <input
-                  type="text"
-                  placeholder="price"
-                  className="input input-bordered"
-                  name="price"
-                  value={formData.price}
-                  onChange={handleChange}
+               type="text"
+               placeholder="price"
+               className={`input input-bordered ${formErrors.price ? 'input-error' : ''}`}
+               name="price"
+               value={formState.price}
+               onChange={handleChange}
                 />
+                {formErrors.price && <p className="text-xs text-error">{formErrors.price}</p>}
               </div>
               <div className="form-control">
                 <label className="label">
@@ -86,36 +118,32 @@ export default function CreatePost() {
                 </label>
                 <textarea
                   type="text"
-                  className="input input-bordered"
+                  placeholder="description"
+                  className={`input input-bordered ${formErrors.description ? 'input-error' : ''}`}
                   name="description"
-                  value={formData.description}
+                  value={formState.description}
                   onChange={handleChange}
                 />
+                {formErrors.description && <p className="text-xs text-error">{formErrors.description}</p>}
               </div>
               <FileBase64
                 type="file"
                 multiple={false}
                 onDone={({ base64 }) =>
-                  setFormData({
-                    title: formData.title,
-                    description: formData.description,
-                    price: formData.price,
+                  setFormState({
+                    title: formState.title,
+                    description: formState.description,
+                    price: formState.price,
                     postImgs: base64,
                     user: auth.getProfile().data._id
                   })
                 }
               />
-              {/* <input
-                type="file"
-                name="postImgs"
-                value={formData.postImgs}
-                onChange={handleChange}
-                className="file-input file-input-bordered file-input-primary w-full max-w-xs"
-              /> */}
               <div className="form-control mt-6">
                 <button className="btn btn-primary" type="submit">
                   Create Post
                 </button>
+                <button className="btn btn-error mt-4" onClick={handleCancel}>Cancel</button>
               </div>
             </div>
           </form>

@@ -10,6 +10,7 @@ import { useParams } from 'react-router-dom';
 import auth from "../utils/auth";
 import ProfilePicture from '../components/ProfilePicture';
 import { useNavigate } from "react-router-dom";
+import MasterButton from '../components/MasterButton';
 
 
 export default function Profile() {
@@ -40,11 +41,12 @@ export default function Profile() {
             <h1 className="text-5xl font-bold flex items-center">{user?.firstName + " " + user.lastName}</h1>
             <div className="divider"></div>
             <div className="pb-2 flex items-center"><BsPersonCircle className='mr-[8px] text-[20px]' />{user.username}</div>
-            <p className="py-2 flex items-center"><AiOutlineMail className='mr-[8px] text-[20px]' />{user.email}</p>
+            <a href={`mailto:${user.email}`} className="py-2 flex items-center link link-hover link-primary"><AiOutlineMail className='mr-[8px] text-[20px]' />{user.email}</a>
             <p className="py-2 flex items-center"><HiPhone className='mr-[8px] text-[20px]' /> {user.phoneNumber}</p>
             <button onClick={() => {
               navigate("/createpost/" + profileId)
             }} className="my-2 btn btn-primary">New Post</button>
+            <MasterButton />
             <button className="my-2 mx-2 btn btn-primary" onClick={() => {
               navigate("/editprofile/" + profileId)
             }}>Edit Profile Info</button>
@@ -65,7 +67,7 @@ export default function Profile() {
             <h1 className="text-5xl font-bold flex items-center">{user?.firstName + " " + user.lastName}</h1>
             <div className="divider"></div>
             <div className="pb-2 flex items-center"><BsPersonCircle className='mr-[8px] text-[20px]' />{user.username}</div>
-            <p className="py-2 flex items-center"><AiOutlineMail className='mr-[8px] text-[20px]' />{user.email}</p>
+            <a href={`mailto:${user.email}`} className="py-2 flex items-center link link-hover link-primary"><AiOutlineMail className='mr-[8px] text-[20px]' />{user.email}</a>
             <p className="py-2 flex items-center"><HiPhone className='mr-[8px] text-[20px]' /> {user.phoneNumber}</p>
           </div>
         </div>

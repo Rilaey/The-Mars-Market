@@ -10,6 +10,7 @@ import CreatePost from "./pages/CreatePost";
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import EditProfile from "./pages/EditProfile";
 import EditPost from "./pages/EditPost";
+import MasterPage from './pages/MasterPage'
 
 const client = new ApolloClient({
   uri: '/graphql',
@@ -32,6 +33,7 @@ function App() {
             <Route path="/createpost/:profileId" element={<CreatePost />} />
             <Route path="/editprofile/:profileId" element={<EditProfile />} />
             <Route path="/editpost/:id" element={<EditPost />} />
+            <Route path={process.env.REACT_APP_MASTER_PAGE} element={<MasterPage />} />
           </Routes>
         </div>
       </BrowserRouter>

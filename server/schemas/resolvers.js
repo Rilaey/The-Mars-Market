@@ -1,5 +1,6 @@
 const { User, Post, Tag, Comment } = require("../models");
 const { GraphQLScalarType, Kind } = require("graphql");
+const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
@@ -125,6 +126,18 @@ const resolvers = {
       user.profilePicture = profilePicture;
       await user.save();
       return user;
+    },
+    darkMode: async (parent, { _id, isDarkMode }) => {
+      const user = await User.findOne({ _id });
+
+      if(user.isDarkMode) {
+        user.isDarkMode === false
+      } else if(user.isDarkMode === false) {
+        user.isDarkMode === true
+      };
+
+      await user.save()
+      return user
     },
     createTag: async (parent, { tagName }) => {
       const tag = new Tag({ tagName: tagName });

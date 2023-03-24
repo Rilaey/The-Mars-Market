@@ -21,6 +21,23 @@ export const QUERY_USER = gql`
   }
 `;
 
+export const QUERY_USERS = gql`
+query Users {
+  users {
+    _id
+    phoneNumber
+    email
+    posts {
+      title
+      price
+      description
+      postImgs
+      _id
+    }
+  }
+}
+`
+
 export const QUERY_ALL_TAGS = gql`
   query getAllTags {
     getAllTags {
