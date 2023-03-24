@@ -129,10 +129,18 @@ const resolvers = {
       await user.save();
       return user;
     },
-    darkMode: async (parent, { _id, isDarkMode }) => {
+    setDarkMode: async (parent, { _id, isDarkMode }) => {
       const user = await User.findOne({ _id });
 
       user.isDarkMode = true
+
+      await user.save()
+      return user
+    },
+    removeDarkMode: async (parent, { _id, isDarkMode }) => {
+      const user = await User.findOne({ _id });
+
+      user.isDarkMode = false
 
       await user.save()
       return user
