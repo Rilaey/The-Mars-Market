@@ -1,26 +1,41 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_ALL_TAGS, QUERY_USER } from "../utils/queries";
+import { SET_DARK_MODE, REMOVE_DARK_MODE } from "../utils/mutations";
 import { Link } from "react-router-dom";
 import auth from "../utils/auth";
 import logo from "../assets/logo.png";
 
 function Header() {
-  const [theme, setTheme] = useState("cupcake");
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "cupcake" : "dark");
-  };
+  // const [theme, setTheme] = useState("cupcake");
+  // const toggleTheme = () => {
+  //   setTheme(theme === "dark" ? "cupcake" : "dark");
+  // };
   // initially set the theme and "listen" for changes to apply them to the HTML tag
-  useEffect(() => {
-    document.querySelector("html").setAttribute("data-theme", theme);
-  }, [theme]);
+  // useEffect(() => {
+  //   document.querySelector("html").setAttribute("data-theme", theme);
+  // }, [theme]);
 
   const navigate = useNavigate();
   const logout = (event) => {
     event.preventDefault();
     auth.logout();
   };
+
+  // const [setDarkMode, { loading: loading_set, data: data_set }] = useMutation(SET_DARK_MODE, {
+  //   variables: { id: auth.getProfile().data._id }
+  // });
+
+  // const [removeDarkMode, { loading: loading_remove, data: data_remove }] = useMutation(REMOVE_DARK_MODE, {
+  //   variables: { id: auth.getProfile().data._id }
+  // });
+
+  // const pleaseWork = () => {
+  //   if (auth.getProfile().data.isDarkMode === false) {
+  //     setDarkMode()
+  //   }
+  // };
 
   // get all tags
   const { loading: loading_tags, data: data_tags } = useQuery(QUERY_ALL_TAGS);
@@ -55,9 +70,10 @@ function Header() {
         {auth.loggedIn() ? (
           <>
             <label className="swap swap-rotate">
-              <input onClick={toggleTheme} type="checkbox" />
+              <input type="checkbox" />
               <svg
                 className="swap-on fill-current w-10 h-10"
+                // onClick={() => pleaseWork()}
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
               >
@@ -66,6 +82,7 @@ function Header() {
 
               <svg
                 className="swap-off fill-current w-10 h-10"
+                // onClick={() => pleaseWork()}
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
               >

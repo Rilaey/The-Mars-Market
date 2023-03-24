@@ -3,7 +3,7 @@ import { AiOutlineMail } from "react-icons/ai";
 import { HiPhone } from "react-icons/hi";
 import { useParams, useNavigate } from "react-router-dom";
 import { QUERY_POST, QUERY_POSTS } from "../utils/queries";
-import { DELETE_POST } from '../utils/mutations';
+import { DELETE_POST } from "../utils/mutations";
 import { useQuery, useMutation } from "@apollo/client";
 import Card from "../components/Card";
 import Slide from "../components/Slide";
@@ -22,7 +22,8 @@ export default function Item() {
 
   const query2Result = useQuery(QUERY_POSTS);
 
-  const [deletePost, { loading:loading_delete, error }] = useMutation(DELETE_POST);
+  const [deletePost, { loading: loading_delete, error }] =
+    useMutation(DELETE_POST);
 
   if (query2Result.loading || loading) {
     //insert loading bar
@@ -37,19 +38,25 @@ export default function Item() {
 
   const handleDelete = () => {
     deletePost({ variables: { deletePostId: id } })
-    .then(() => {
-        navigate('/') // Reloads the page after the mutation is completed
+      .then(() => {
+        navigate("/"); // Reloads the page after the mutation is completed
         window.location.reload();
         alert(`Transaction sent!`);
       })
       .catch((err) => {
         console.log(err);
       });
-};
+  };
 
   const amount = post.price;
   const currency = "USD";
-  const style = { layout: "vertical" };
+  const style = {
+    layout: "vertical",
+    color: "blue",
+    shape: "pill",
+    label: "paypal",
+    backgroundColor: "#EEEEEE"
+  };
 
   return (
     <>
@@ -121,11 +128,11 @@ export default function Item() {
               {checkout ? (
                 <PayPalScriptProvider
                   options={{
-                    "client-id":process.env.REACT_APP_PAYPAL_CLIENT
+                    "client-id": process.env.REACT_APP_PAYPAL_CLIENT
                   }}
                 >
                   <PayPalButtons
-                    style={style}
+                    style={{ maxWidth: "750px", minHeight: "200px", backgroundColor: "black"}}
                     disabled={false}
                     forceReRender={[amount, currency, style]}
                     fundingSource={undefined}
