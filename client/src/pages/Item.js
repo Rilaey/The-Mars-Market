@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AiOutlineMail } from "react-icons/ai";
 import { HiPhone } from "react-icons/hi";
 import { useParams, useNavigate } from "react-router-dom";
@@ -11,6 +11,11 @@ import auth from "../utils/auth";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 export default function Item() {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    console.log('working')
+  }, [])
+
   const [checkout, setCheckout] = useState(false);
 
   const navigate = useNavigate();
@@ -51,11 +56,10 @@ export default function Item() {
   const amount = post.price;
   const currency = "USD";
   const style = {
-    layout: "vertical",
-    color: "blue",
-    shape: "pill",
-    label: "paypal",
-    backgroundColor: "#EEEEEE"
+    shape: 'pill',
+    color: 'white',
+    layout: 'vertical',
+    label: 'paypal',
   };
 
   return (
@@ -130,9 +134,10 @@ export default function Item() {
                   options={{
                     "client-id": process.env.REACT_APP_PAYPAL_CLIENT
                   }}
+                  style={{ backgroundColor: "none"}}
                 >
                   <PayPalButtons
-                    style={{ maxWidth: "750px", minHeight: "200px", backgroundColor: "black"}}
+                    style={style}
                     disabled={false}
                     forceReRender={[amount, currency, style]}
                     fundingSource={undefined}

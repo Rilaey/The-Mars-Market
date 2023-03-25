@@ -55,7 +55,9 @@ function Header() {
       <div className="flex-1">
         <a href="/" className="btn btn-ghost normal-case text-xl">
           <img className="w-[50px] h-[50px]" src={logo} />
-          The Mars Market
+        </a>
+        <a href="/" className="btn btn-ghost normal-case text-xl header-logo-text">
+        The Mars Market
         </a>
       </div>
       <div className="flex-none gap-3">
