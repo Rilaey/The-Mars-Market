@@ -9,7 +9,14 @@ export default function Card(props) {
 
     return (
         <div className="card sm:w-96 bg-base-100 shadow-xl m-[24px] w-[21rem]">
-            <figure><img className="h-[256.67px]" src={props.image} alt="car!" /></figure>
+            <figure><img 
+            className="h-[256.67px]" 
+            src={props.image} 
+            alt="Seller's Item" 
+            onClick={() => {
+                navigate("/item/" + props.post)
+            }}
+            style={{ cursor: 'pointer' }} /></figure>
             <div className="card-body">
                 <div className="flex justify-between">
                     <h2 className="card-title">{props.title}</h2>
