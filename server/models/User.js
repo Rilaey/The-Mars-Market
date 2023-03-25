@@ -37,10 +37,6 @@ const userSchema = new Schema({
   profilePicture: {
     type: String
   },
-  isAdmin: {
-    type: Boolean,
-    default: false,
-  },
   isDarkMode: {
     type: Boolean,
     default: false

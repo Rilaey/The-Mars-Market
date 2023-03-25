@@ -10,7 +10,6 @@ import { useParams } from 'react-router-dom';
 import auth from "../utils/auth";
 import ProfilePicture from '../components/ProfilePicture';
 import { useNavigate } from "react-router-dom";
-import MasterButton from '../components/MasterButton';
 
 
 export default function Profile() {
@@ -46,7 +45,6 @@ export default function Profile() {
             <button onClick={() => {
               navigate("/createpost/" + profileId)
             }} className="my-2 btn btn-primary">New Post</button>
-            <MasterButton />
             <button className="my-2 mx-2 btn btn-primary" onClick={() => {
               navigate("/editprofile/" + profileId)
             }}>Edit Profile Info</button>
