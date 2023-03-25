@@ -12,9 +12,9 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 export default function Item() {
   useEffect(() => {
-    window.scrollTo(0, 0)
-    console.log('working')
-  }, [])
+    window.scrollTo(0, 0);
+    console.log("working");
+  }, []);
 
   const [checkout, setCheckout] = useState(false);
 
@@ -56,10 +56,10 @@ export default function Item() {
   const amount = post.price;
   const currency = "USD";
   const style = {
-    shape: 'pill',
-    color: 'white',
-    layout: 'vertical',
-    label: 'paypal',
+    shape: "pill",
+    color: "white",
+    layout: "vertical",
+    label: "paypal"
   };
 
   return (
@@ -129,48 +129,60 @@ export default function Item() {
               {post.user.phoneNumber}
             </p>
             <div>
-              {checkout ? (
-                <PayPalScriptProvider
-                  options={{
-                    "client-id": process.env.REACT_APP_PAYPAL_CLIENT
-                  }}
-                  style={{ backgroundColor: "none"}}
-                >
-                  <PayPalButtons
-                    style={style}
-                    disabled={false}
-                    forceReRender={[amount, currency, style]}
-                    fundingSource={undefined}
-                    createOrder={(data, actions) => {
-                      return actions.order.create({
-                        purchase_units: [
-                          {
-                            description: post.description,
-                            amount: {
-                              currency_code: currency,
-                              value: amount
+              {auth.loggedIn() ? (
+                checkout ? (
+                  <PayPalScriptProvider
+                    options={{
+                      "client-id": process.env.REACT_APP_PAYPAL_CLIENT
+                    }}
+                  >
+                    <PayPalButtons
+                      className="paypal-button-container"
+                      style={style}
+                      disabled={false}
+                      forceReRender={[amount, currency, style]}
+                      fundingSource={undefined}
+                      createOrder={(data, actions) => {
+                        return actions.order.create({
+                          purchase_units: [
+                            {
+                              description: post.description,
+                              amount: {
+                                currency_code: currency,
+                                value: amount
+                              }
                             }
-                          }
-                        ]
-                      });
+                          ]
+                        });
+                      }}
+                      onApprove={(data, actions) => {
+                        return actions.order.capture().then(() => {
+                          handleDelete();
+                        });
+                      }}
+                    />
+                  </PayPalScriptProvider>
+                ) : (
+                  <button
+                    className="my-2 mx-2 btn btn-primary"
+                    onClick={() => {
+                      setCheckout(true);
                     }}
-                    onApprove={(data, actions) => {
-                      return actions.order.capture().then(() => {
-                        handleDelete();
-                      });
-                    }}
-                  />
-                </PayPalScriptProvider>
+                  >
+                    Buy Now!
+                  </button>
+                )
               ) : (
                 <button
                   className="my-2 mx-2 btn btn-primary"
                   onClick={() => {
-                    setCheckout(true);
+                    navigate("/signin");
                   }}
                 >
                   Buy Now!
                 </button>
               )}
+
               {auth.loggedIn() ? (
                 <button
                   className="my-2 btn btn-primary"
