@@ -11,6 +11,7 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import EditProfile from "./pages/EditProfile";
 import EditPost from "./pages/EditPost";
 import MasterPage from './pages/MasterPage'
+import './index.css'
 
 const client = new ApolloClient({
   uri: '/graphql',
