@@ -35,7 +35,8 @@ const userSchema = new Schema({
     trim: true
   },
   profilePicture: {
-    type: String
+    type: String,
+    default: "https://villagesonmacarthur.com/wp-content/uploads/2020/12/Blank-Avatar.png"
   },
   isDarkMode: {
     type: Boolean,
