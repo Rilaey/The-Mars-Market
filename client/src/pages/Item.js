@@ -170,7 +170,7 @@ export default function Item() {
                 )
               ) : (
                 <button
-                  className="my-2 mx-2 btn btn-primary"
+                  className="my-2 btn btn-primary"
                   onClick={() => {
                     navigate("/signin");
                   }}

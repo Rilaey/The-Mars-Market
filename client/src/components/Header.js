@@ -8,7 +8,7 @@ import auth from "../utils/auth";
 import logo from "../assets/logo.png";
 
 function Header() {
-  // The following code below is functionality for our future dark mode interaction. 
+  // The following code below is functionality for our future dark mode interaction.
   // const [theme, setTheme] = useState("cupcake");
   // const toggleTheme = () => {
   //   setTheme(theme === "dark" ? "cupcake" : "dark");
@@ -83,15 +83,7 @@ function Header() {
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                 <div className="w-10 rounded-full">
-                  {auth.getProfile().data.profilePicture ? (
                     <img src={currentUser.profilePicture} />
-                  ) : (
-                    <img
-                      src={
-                        "https://villagesonmacarthur.com/wp-content/uploads/2020/12/Blank-Avatar.png"
-                      }
-                    />
-                  )}
                 </div>
               </label>
               <ul
