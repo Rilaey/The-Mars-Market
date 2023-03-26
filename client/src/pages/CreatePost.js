@@ -119,6 +119,7 @@ export default function CreatePost() {
                 />
                 {formErrors.description && <p className="text-xs text-error">{formErrors.description}</p>}
               </div>
+              <div className="input-file">
               <FileBase64
                 type="file"
                 multiple={false}
@@ -132,6 +133,7 @@ export default function CreatePost() {
                   })
                 }
               />
+              </div>
               <div className="form-control mt-6">
                 <button className="btn btn-primary" type="submit">
                   Create Post
