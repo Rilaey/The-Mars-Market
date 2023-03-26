@@ -5,3 +5,15 @@
 html {
     scroll-padding-top: 100px;
 }
+
+.input-file input[type="file" i]::-webkit-file-upload-button{
+    background-color: hsl(var(--pf));
+    color: hsl(var(--pc));
+    margin: 25px auto;
+    cursor: pointer;
+}
+
+.profile-pic-form {
+    display: flex;
+    flex-direction: column;
+}

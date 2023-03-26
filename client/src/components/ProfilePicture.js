@@ -1,4 +1,4 @@
-import FileBase64 from 'react-file-base64';
+import FileBase64 from "react-file-base64";
 import React, { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_PROFILE_PICTURE } from "../utils/mutations";
@@ -25,25 +25,36 @@ export default function ProfilePicture() {
     //  event.preventDefault();
     console.log(formState);
 
-      try {
-        const { data } = await addProfilePicture({
-          variables: { ...formState },
-        });
+    try {
+      const { data } = await addProfilePicture({
+        variables: { ...formState }
+      });
 
-          console.log(data)
-      } catch (error) {
-        console.error(error);
-      }
+      console.log(data);
+    } catch (error) {
+      console.error(error);
     }
+  };
 
   return (
-    <form onSubmit={handleFormSubmit}>
-      <input type="hidden" onChange={handleChange} value={auth.getProfile().data._id}/>
-      <FileBase64
+    <form className="profile-pic-form" onSubmit={handleFormSubmit}>
+      <input
+        type="hidden"
+        onChange={handleChange}
+        value={auth.getProfile().data._id}
+      />
+      <div className="input-file">
+        <FileBase64
           type="file"
           multiple={false}
-          onDone={({ base64 }) => setFormState({ addProfilePictureId: auth.getProfile().data._id, profilePicture: base64 })}
+          onDone={({ base64 }) =>
+            setFormState({
+              addProfilePictureId: auth.getProfile().data._id,
+              profilePicture: base64
+            })
+          }
         />
+      </div>
       <button className="btn btn-primary">Upload Profile Picture</button>
     </form>
   );
