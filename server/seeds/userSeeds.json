@@ -14,7 +14,8 @@
         "email": "mikebrady@gmail.com",
         "password":"password2",
         "username": "mikeBrady",
-        "phoneNumber": "555-555-5555"
+        "phoneNumber": "555-555-5555",
+        "profilePicture": "https://images.pexels.com/photos/3386332/pexels-photo-3386332.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     },
     {
         "firstName": "Bobby",
@@ -22,7 +23,8 @@
         "email": "bobbywinner@gmail.com",
         "password": "password3",
         "username": "bobbyWinner",
-        "phoneNumber": "555-555-5555"
+        "phoneNumber": "555-555-5555",
+        "profilePicture": "https://images.pexels.com/photos/11798029/pexels-photo-11798029.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     },
     {
         "firstName": "Greg",
@@ -30,7 +32,8 @@
         "email": "gregjones@gmail.com",
         "password": "password4",
         "username": "gregJones",
-        "phoneNumber": "555-555-5555"
+        "phoneNumber": "555-555-5555",
+        "profilePicture": "https://images.pexels.com/photos/4588065/pexels-photo-4588065.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     },
     {
         "firstName": "Casey",
@@ -38,6 +41,7 @@
         "email": "caseylaces@gmail.com",
         "password": "password5",
         "username": "caseylaces",
-        "phoneNumber": "555-555-5555"
+        "phoneNumber": "555-555-5555",
+        "profilePicture": "https://images.pexels.com/photos/5641953/pexels-photo-5641953.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     }
 ]
