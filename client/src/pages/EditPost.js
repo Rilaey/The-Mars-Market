@@ -51,15 +51,9 @@ export default function CreatePost() {
         });
     };
 
-    useEffect(() => {
-        // Get the user ID from the auth object
-        const userId = auth.getProfile().data._id;
-        console.log(`User ID: ${userId}`);
-      }, []);
-
-      const handleCancel = () => {
+    const handleCancel = () => {
         navigate(`/profile/${auth.getProfile().data._id}`);
-      };
+    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -71,7 +65,6 @@ export default function CreatePost() {
                 const { data } = await updatePost({
                     variables: { updatePostId: _id, title, description, price: priceAsFloat },
                 });
-                console.log('Success!');
                 navigate(`/profile/${auth.getProfile().data._id}`);
                 window.location.reload();
             } catch (error) {
@@ -85,7 +78,9 @@ export default function CreatePost() {
         <div className="hero min-h-screen bg-base-200">
             <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                 {loading ? (
-                    <p>Loading...</p>
+                    <div className="flex justify-center items-center text-center min-h-[95vh]">
+                        <button className="btn btn-square loading"></button>
+                    </div>
                 ) : (
                     <form onSubmit={handleSubmit}>
                         <div className="card-body">

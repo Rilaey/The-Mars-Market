@@ -55,7 +55,6 @@ export default function CreatePost() {
           user: auth.getProfile().data._id
         }
       });
-      console.log(data);
       navigate(`/profile/${auth.getProfile().data._id}`);
       window.location.reload();
       // Reset form data if desired
@@ -64,12 +63,6 @@ export default function CreatePost() {
     }
   }
   };
-
-  useEffect(() => {
-    // Get the user ID from the auth object
-    const userId = auth.getProfile().data._id;
-    console.log(`User ID: ${userId}`);
-  }, []);
 
   const handleCancel = () => {
     navigate(`/profile/${auth.getProfile().data._id}`);

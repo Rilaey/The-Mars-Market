@@ -45,7 +45,7 @@ function Header() {
   const currentUser = data_user?.user || {};
 
   if (loading_user) {
-    return <div>Loading...</div>;
+    return <div></div>;
   }
   return (
     <div className="navbar bg-base-100 fixed z-10">

@@ -14,7 +14,6 @@ import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
   useEffect(() => {
-    console.log("working")
     window.scrollTo(0, 0);
   }, []);
 

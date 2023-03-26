@@ -10,6 +10,7 @@ import CreatePost from "./pages/CreatePost";
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import EditProfile from "./pages/EditProfile";
 import EditPost from "./pages/EditPost";
+import Loading from "./pages/Loading";
 import './index.css'
 
 const client = new ApolloClient({
@@ -33,6 +34,7 @@ function App() {
             <Route path="/createpost/:profileId" element={<CreatePost />} />
             <Route path="/editprofile/:profileId" element={<EditProfile />} />
             <Route path="/editpost/:id" element={<EditPost />} />
+            <Route path="/loading/:id" element={<Loading />} />
           </Routes>
         </div>
       </BrowserRouter>

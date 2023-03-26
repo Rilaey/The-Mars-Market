@@ -93,12 +93,6 @@ export default function EditProfile() {
         }
     };
 
-    useEffect(() => {
-        // Get the user ID from the auth object
-        const userId = auth.getProfile().data._id;
-        console.log(`User ID: ${userId}`);
-    }, []);
-
     const handleCancel = () => {
         navigate(`/profile/${auth.getProfile().data._id}`);
     };
