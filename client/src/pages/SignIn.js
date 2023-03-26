@@ -40,7 +40,6 @@ export default function SignIn() {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState);
 
     if (validateForm()) {
       try {
@@ -102,6 +101,9 @@ export default function SignIn() {
               <button className="btn btn-primary">Login</button>
             </div>
           </form>
+          {error && (
+            <div className="text-error flex justify-center pb-[20px] text-[16px]">Invalid Email and/or Password</div>
+          )}
         </div>
       </div>
     </div>

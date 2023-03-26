@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ProfileCard from '../components/ProfileCard';
 import Card from '../components/Card';
 import { BsPersonCircle } from 'react-icons/bs';
@@ -10,10 +10,13 @@ import { useParams } from 'react-router-dom';
 import auth from "../utils/auth";
 import ProfilePicture from '../components/ProfilePicture';
 import { useNavigate } from "react-router-dom";
-import MasterButton from '../components/MasterButton';
 
 
 export default function Profile() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const navigate = useNavigate();
   const { profileId } = useParams()
 
@@ -46,7 +49,6 @@ export default function Profile() {
             <button onClick={() => {
               navigate("/createpost/" + profileId)
             }} className="my-2 btn btn-primary">New Post</button>
-            <MasterButton />
             <button className="my-2 mx-2 btn btn-primary" onClick={() => {
               navigate("/editprofile/" + profileId)
             }}>Edit Profile Info</button>
@@ -55,7 +57,7 @@ export default function Profile() {
         </div>
       </div><h1 className="flex justify-center pt-[12px] text-5xl font-bold">Your Items</h1><div className='card-container justify-center items-center flex flex-wrap'>
           {user.posts.map(product => (
-            <ProfileCard className="card" edit={product._id} delete={product._id} key={product._id} title={product.title} description={product.description} price={product.price} image={product.postImgs[0]} />
+            <ProfileCard className="card" post={product._id} edit={product._id} delete={product._id} key={product._id} title={product.title} description={product.description} price={product.price} image={product.postImgs[0]} />
           ))}
         </div></> : <><div className="pt-[24px] hero bg-base-200">
         <div className="hero-content flex-col lg:flex-row">

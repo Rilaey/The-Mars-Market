@@ -55,7 +55,6 @@ export default function CreatePost() {
           user: auth.getProfile().data._id
         }
       });
-      console.log(data);
       navigate(`/profile/${auth.getProfile().data._id}`);
       window.location.reload();
       // Reset form data if desired
@@ -64,12 +63,6 @@ export default function CreatePost() {
     }
   }
   };
-
-  useEffect(() => {
-    // Get the user ID from the auth object
-    const userId = auth.getProfile().data._id;
-    console.log(`User ID: ${userId}`);
-  }, []);
 
   const handleCancel = () => {
     navigate(`/profile/${auth.getProfile().data._id}`);
@@ -126,6 +119,7 @@ export default function CreatePost() {
                 />
                 {formErrors.description && <p className="text-xs text-error">{formErrors.description}</p>}
               </div>
+              <div className="input-file">
               <FileBase64
                 type="file"
                 multiple={false}
@@ -139,6 +133,7 @@ export default function CreatePost() {
                   })
                 }
               />
+              </div>
               <div className="form-control mt-6">
                 <button className="btn btn-primary" type="submit">
                   Create Post

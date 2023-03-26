@@ -41,13 +41,6 @@ export default function EditProfile() {
             errors.username = "Please enter a username";
         }
 
-        // Validate password
-        if (!formState.password) {
-            errors.password = "Please enter a password";
-        } else if (formState.password.length < 6) {
-            errors.password = "Password must be at least 6 characters long";
-        }
-
         setErrors(errors);
 
         // Return true if there are no errors, false otherwise
@@ -84,6 +77,7 @@ export default function EditProfile() {
     const handleFormSubmit = async (event) => {
         event.preventDefault();
         if (!validateForm()) {
+            console.log(errors)
             return;
         }
         try {
@@ -92,22 +86,16 @@ export default function EditProfile() {
                 variables: { firstName, lastName, email, phoneNumber, username, _id: auth.getProfile().data._id },
             });
             navigate(`/profile/${auth.getProfile().data._id}`)
-            
+
             // Reset form data if desired
         } catch (error) {
             console.error(error);
         }
     };
 
-    useEffect(() => {
-        // Get the user ID from the auth object
-        const userId = auth.getProfile().data._id;
-        console.log(`User ID: ${userId}`);
-      }, []);
-    
-      const handleCancel = () => {
+    const handleCancel = () => {
         navigate(`/profile/${auth.getProfile().data._id}`);
-      };
+    };
 
 
     return (
@@ -206,8 +194,8 @@ export default function EditProfile() {
                             <button className="btn btn-error mt-4" onClick={handleCancel}>Cancel</button>
                         </div>
                     </form>
-                        {errors && (
-                        <div className="my-3 p-3 bg-danger text-white">{errors.message}</div>
+                    {error && (
+                        <div className="text-error flex justify-center pb-[20px] text-[16px]">{error.message.includes("email") ? "Email Already in Use" : "Username Already in Use"}</div>
                     )}
                 </div>
             </div>

@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AiOutlineMail } from "react-icons/ai";
 import { HiPhone } from "react-icons/hi";
 import { useParams, useNavigate } from "react-router-dom";
 import { QUERY_POST, QUERY_POSTS } from "../utils/queries";
-import { DELETE_POST } from '../utils/mutations';
+import { DELETE_POST } from "../utils/mutations";
 import { useQuery, useMutation } from "@apollo/client";
 import Card from "../components/Card";
 import Slide from "../components/Slide";
@@ -11,6 +11,7 @@ import auth from "../utils/auth";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 export default function Item() {
+
   const [checkout, setCheckout] = useState(false);
 
   const navigate = useNavigate();
@@ -22,7 +23,8 @@ export default function Item() {
 
   const query2Result = useQuery(QUERY_POSTS);
 
-  const [deletePost, { loading:loading_delete, error }] = useMutation(DELETE_POST);
+  const [deletePost, { loading: loading_delete, error }] =
+    useMutation(DELETE_POST);
 
   if (query2Result.loading || loading) {
     //insert loading bar
@@ -37,19 +39,24 @@ export default function Item() {
 
   const handleDelete = () => {
     deletePost({ variables: { deletePostId: id } })
-    .then(() => {
-        navigate('/') // Reloads the page after the mutation is completed
+      .then(() => {
+        navigate("/"); // Reloads the page after the mutation is completed
         window.location.reload();
         alert(`Transaction sent!`);
       })
       .catch((err) => {
         console.log(err);
       });
-};
+  };
 
   const amount = post.price;
   const currency = "USD";
-  const style = { layout: "vertical" };
+  const style = {
+    shape: "pill",
+    color: "white",
+    layout: "vertical",
+    label: "paypal"
+  };
 
   return (
     <>
@@ -118,47 +125,60 @@ export default function Item() {
               {post.user.phoneNumber}
             </p>
             <div>
-              {checkout ? (
-                <PayPalScriptProvider
-                  options={{
-                    "client-id":process.env.REACT_APP_PAYPAL_CLIENT
-                  }}
-                >
-                  <PayPalButtons
-                    style={style}
-                    disabled={false}
-                    forceReRender={[amount, currency, style]}
-                    fundingSource={undefined}
-                    createOrder={(data, actions) => {
-                      return actions.order.create({
-                        purchase_units: [
-                          {
-                            description: post.description,
-                            amount: {
-                              currency_code: currency,
-                              value: amount
+              {auth.loggedIn() ? (
+                checkout ? (
+                  <PayPalScriptProvider
+                    options={{
+                      "client-id": process.env.REACT_APP_PAYPAL_CLIENT
+                    }}
+                  >
+                    <PayPalButtons
+                      className="paypal-button-container"
+                      style={style}
+                      disabled={false}
+                      forceReRender={[amount, currency, style]}
+                      fundingSource={undefined}
+                      createOrder={(data, actions) => {
+                        return actions.order.create({
+                          purchase_units: [
+                            {
+                              description: post.description,
+                              amount: {
+                                currency_code: currency,
+                                value: amount
+                              }
                             }
-                          }
-                        ]
-                      });
+                          ]
+                        });
+                      }}
+                      onApprove={(data, actions) => {
+                        return actions.order.capture().then(() => {
+                          handleDelete();
+                        });
+                      }}
+                    />
+                  </PayPalScriptProvider>
+                ) : (
+                  <button
+                    className="my-2 mx-2 btn btn-primary"
+                    onClick={() => {
+                      setCheckout(true);
                     }}
-                    onApprove={(data, actions) => {
-                      return actions.order.capture().then(() => {
-                        handleDelete();
-                      });
-                    }}
-                  />
-                </PayPalScriptProvider>
+                  >
+                    Buy Now!
+                  </button>
+                )
               ) : (
                 <button
-                  className="my-2 mx-2 btn btn-primary"
+                  className="my-2 btn btn-primary"
                   onClick={() => {
-                    setCheckout(true);
+                    navigate("/signin");
                   }}
                 >
-                  Buy Now!
+                  Log in to Buy Now!
                 </button>
               )}
+
               {auth.loggedIn() ? (
                 <button
                   className="my-2 btn btn-primary"
@@ -172,7 +192,7 @@ export default function Item() {
                 <button
                   className="my-2 btn btn-primary"
                   onClick={() => {
-                    navigate(`/signup`);
+                    navigate(`/signin`);
                   }}
                 >
                   Log in to view sellers profile

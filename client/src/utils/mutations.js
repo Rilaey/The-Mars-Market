@@ -12,6 +12,24 @@ export const LOGIN_USER = gql`
   }
 `;
 
+export const SET_DARK_MODE = gql`
+  mutation RemoveDarkMode($id: ID!) {
+    removeDarkMode(_id: $id) {
+      _id
+      isDarkMode
+    }
+  }
+`;
+
+export const REMOVE_DARK_MODE = gql`
+  mutation SetDarkMode($id: ID!) {
+    setDarkMode(_id: $id) {
+      _id
+      isDarkMode
+    }
+  }
+`;
+
 export const CREATE_USER = gql`
   mutation createUser(
     $firstName: String!
@@ -40,30 +58,30 @@ export const CREATE_USER = gql`
 `;
 
 export const UPDATE_USER = gql`
-mutation updateUser(
-  $_id: ID!
-  $firstName: String!
-  $lastName: String!
-  $email: String!
-  $username: String!
-  $phoneNumber: String!
-) {
-  updateUser(
-    _id: $_id
-    firstName: $firstName
-    lastName: $lastName
-    email: $email
-    username: $username
-    phoneNumber: $phoneNumber
+  mutation updateUser(
+    $_id: ID!
+    $firstName: String!
+    $lastName: String!
+    $email: String!
+    $username: String!
+    $phoneNumber: String!
   ) {
-    _id
-    firstName
-    lastName
-    email
-    username
-    phoneNumber
+    updateUser(
+      _id: $_id
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+      username: $username
+      phoneNumber: $phoneNumber
+    ) {
+      _id
+      firstName
+      lastName
+      email
+      username
+      phoneNumber
+    }
   }
-}
 `;
 
 export const DELETE_USER = gql`
@@ -89,21 +107,33 @@ export const ADD_PROFILE_PICTURE = gql`
 `;
 
 export const CREATE_POST = gql`
-mutation createPost($user: ID!, $title: String!, $description: String!, $price: Float!, $postImgs: [String]!) {
-  createPost(user: $user, title: $title, description: $description, price: $price, postImgs: $postImgs) {
-    user {
+  mutation createPost(
+    $user: ID!
+    $title: String!
+    $description: String!
+    $price: Float!
+    $postImgs: [String]!
+  ) {
+    createPost(
+      user: $user
+      title: $title
+      description: $description
+      price: $price
+      postImgs: $postImgs
+    ) {
+      user {
+        _id
+        phoneNumber
+        email
+        username
+      }
       _id
-      phoneNumber
-      email
-      username
+      title
+      description
+      price
+      postImgs
     }
-    _id
-    title
-    description
-    price
-    postImgs
   }
-}
 `;
 
 export const UPDATE_POST = gql`
