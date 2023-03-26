@@ -22,6 +22,9 @@ db.once('open', async () => {
     postSeeds[6].user = users[1]._id;
     postSeeds[7].user = users[2]._id;
     postSeeds[8].user = users[3]._id;
+    postSeeds[9].user = users[4]._id;
+    postSeeds[10].user = users[0]._id;
+    postSeeds[11].user = users[1]._id;
 
     await Post.create(postSeeds);
 
