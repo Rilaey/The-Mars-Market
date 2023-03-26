@@ -14,7 +14,8 @@ export default function Card(props) {
             src={props.image} 
             alt="Seller's Item" 
             onClick={() => {
-                navigate("/item/" + props.post)
+                navigate("/item/" + props.post);
+                window.scrollTo(0, 0);
             }}
             style={{ cursor: 'pointer' }} /></figure>
             <div className="card-body">
@@ -25,7 +26,8 @@ export default function Card(props) {
                 <p className="overflow-hidden text-ellipsis whitespace-nowrap">{props.description}</p>
                 <div className="card-actions justify-end">
                     <button onClick={() => {
-                        navigate("/item/" + props.post)
+                        navigate("/item/" + props.post);
+                        window.scrollTo(0, 0);
                     }} className="btn btn-primary">View Listing</button>
                 </div>
             </div>

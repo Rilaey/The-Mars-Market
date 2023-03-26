@@ -11,10 +11,6 @@ import auth from "../utils/auth";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 export default function Item() {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    console.log("working");
-  }, []);
 
   const [checkout, setCheckout] = useState(false);
 
@@ -179,7 +175,7 @@ export default function Item() {
                     navigate("/signin");
                   }}
                 >
-                  Buy Now!
+                  Log in to Buy Now!
                 </button>
               )}
 
@@ -196,7 +192,7 @@ export default function Item() {
                 <button
                   className="my-2 btn btn-primary"
                   onClick={() => {
-                    navigate(`/signup`);
+                    navigate(`/signin`);
                   }}
                 >
                   Log in to view sellers profile

@@ -200,8 +200,8 @@ export default function EditProfile() {
                             <button className="btn btn-error mt-4" onClick={handleCancel}>Cancel</button>
                         </div>
                     </form>
-                    {errors && (
-                        <div className="my-3 p-3 bg-danger text-white">{errors.message}</div>
+                    {error && (
+                        <div className="text-error flex justify-center pb-[20px] text-[16px]">{error.message.includes("email") ? "Email Already in Use" : "Username Already in Use"}</div>
                     )}
                 </div>
             </div>

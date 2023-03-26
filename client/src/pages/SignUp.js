@@ -220,7 +220,7 @@ export default function SignUp() {
           </form>
 
           {error && (
-            <div className="my-3 p-3 bg-danger text-white">{error.message}</div>
+            <div className="text-error flex justify-center pb-[20px] text-[16px]">{error.message.includes("email") ? "Email Already in Use" : "Username Already in Use"}</div>
           )}
         </div>
       </div>

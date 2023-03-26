@@ -35,6 +35,7 @@ export default function ProfileCard(props) {
             alt="Seller's Item" 
             onClick={() => {
                 navigate("/item/" + props.post)
+                window.scrollTo(0, 0);
             }}
             style={{ cursor: 'pointer' }} /></figure>
                 <div className="card-body">
