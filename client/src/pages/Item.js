@@ -142,7 +142,6 @@ export default function Item() {
                         return actions.order.create({
                           purchase_units: [
                             {
-                              description: post.description,
                               amount: {
                                 currency_code: currency,
                                 value: amount
