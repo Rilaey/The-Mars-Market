@@ -11,7 +11,8 @@
         "_id": "640e3344447da0e453263622"
       }
     ],
-    "user": null
+    "user": null,
+    "paypalEmail": "fake@gmail.com"
   },
   {
     "title": "Selling my 2008 Chevy Silverado",
@@ -25,7 +26,8 @@
         "_id": "640e3344447da0e453263622"
       }
     ],
-    "user": null
+    "user": null,
+    "paypalEmail": "fake@gmail.com"
   },
   {
     "title": "2018 MacBook Air",
@@ -36,7 +38,8 @@
       "https://i.pcmag.com/imagery/reviews/01tz6zCt0DLDHxcy2tc2eiR-26.fit_scale.size_1600x900.v1569475734.jpg",
       "https://i.pcmag.com/imagery/reviews/01tz6zCt0DLDHxcy2tc2eiR-27.fit_scale.size_1600x900.v1569475734.jpg"
     ],
-    "user": null
+    "user": null,
+    "paypalEmail": "fake@gmail.com"
   },
   {
     "title": "2021 MacBook Pro",
@@ -45,7 +48,8 @@
     "postImgs": [
       "https://i.pcmag.com/imagery/reviews/01tz6zCt0DLDHxcy2tc2eiR-27.fit_scale.size_1600x900.v1569475734.jpg"
     ],
-    "user": null
+    "user": null,
+    "paypalEmail": "fake@gmail.com"
   },
   {
     "title": "Supreme Shirt",
@@ -54,7 +58,8 @@
     "postImgs": [
       "https://images.stockx.com/images/Supreme-Cross-Box-Logo-Tee-Black.jpg?fit=fill&bg=FFFFFF&w=1200&h=857&fm=webp&auto=compress&dpr=2&trim=color&updated_at=1608222052&q=75"
     ],
-    "user": null
+    "user": null,
+    "paypalEmail": "fake@gmail.com"
   },
   {
     "title": "1991 Nissan 240sx",
@@ -64,7 +69,8 @@
       "https://media.carsandbids.com/cdn-cgi/image/width=2080,quality=70/8864cd06c16cf34eddf5229bf01bf6bfafe9d766/photos/9XpeovMj-4lyKHrcVF3-(edit).jpg?t=166139441124",
       "https://bringatrailer.com/wp-content/uploads/2021/10/1991_nissan_240sx_DSC_4313.jpg?fit=940%2C626"
     ],
-    "user": null
+    "user": null,
+    "paypalEmail": "fake@gmail.com"
   },
   {
     "title": "Jordan 1 Mid Valentine’s Day Edition 2023",
@@ -76,7 +82,8 @@
       "https://sneakernews.com/wp-content/uploads/2023/01/air-jordan-1-mid-gs-pink-white-valentines-day-7.jpg?w=1140",
       "https://sneakernews.com/wp-content/uploads/2023/01/air-jordan-1-mid-gs-pink-white-valentines-day-4.jpg?w=1140"
     ],
-    "user": null
+    "user": null,
+    "paypalEmail": "fake@gmail.com"
   },
   {
     "title": "Nirvanas MTV Unplugged Vinyl",
@@ -86,7 +93,8 @@
       "https://townsquare.media/site/838/files/2019/09/nirvana-mtv-unplugged-vinyl.jpg?w=980&q=75",
       "https://cdn.shopify.com/s/files/1/0017/2664/4290/files/joesalbums-homepage-Artboard_6_460x@2x.jpg?v=1614621201"
     ],
-    "user": null
+    "user": null,
+    "paypalEmail": "fake@gmail.com"
   },
   {
     "title": "New Levels New Devils Vinyl by Polyphia",
@@ -95,7 +103,8 @@
     "postImgs": [
       "https://cdn.shopify.com/s/files/1/0465/3940/7526/products/nlnd_1080x.jpg?v=1673019836"
     ],
-    "user": null
+    "user": null,
+    "paypalEmail": "fake@gmail.com"
   },
   {
     "title": "Fender Rumble 15W Bass Combo Amp",
@@ -108,7 +117,8 @@
       "https://media.guitarcenter.com/is/image/MMGS7/J06158000000000-00-720x720.jpg",
       "https://media.guitarcenter.com/is/image/MMGS7/J06158000000000-05-720x720.jpg"
     ],
-    "user": null
+    "user": null,
+    "paypalEmail": "fake@gmail.com"
   },
   {
     "title": "Used BOSS NS2 Noise Suppressor Effect Pedal",
@@ -117,7 +127,8 @@
     "postImgs": [
       "https://media.guitarcenter.com/is/image/MMGS7/000000118815214-01-720x720.jpg"
     ],
-    "user": null
+    "user": null,
+    "paypalEmail": "fake@gmail.com"
   },
   {
     "title": "Amethyst Crystal Geode, 3.8 inches",
@@ -127,7 +138,8 @@
       "https://bigquartz.com/media/catalog/product/cache/a0a8adc56c02161d494593adf08bdb10/f/0/f0029_amethyst_cluster_geode_purple_natural_crystal_mineral_specimen_01.jpg",
       "https://bigquartz.com/media/catalog/product/cache/a0a8adc56c02161d494593adf08bdb10/f/0/f0029_amethyst_cluster_geode_purple_natural_crystal_mineral_specimen_02.jpg"
     ],
-    "user": null
+    "user": null,
+    "paypalEmail": "fake@gmail.com"
   },
   {
     "title": "Boba Fett Pez Candy Dispenser",
@@ -136,6 +148,7 @@
     "postImgs": [
       "https://cdn.shopify.com/s/files/1/2013/2287/products/Boba-Fett_1024x1024@2x.jpg?v=1650467506"
     ],
-    "user": null
+    "user": null,
+    "paypalEmail": "fake@gmail.com"
   }
 ]
