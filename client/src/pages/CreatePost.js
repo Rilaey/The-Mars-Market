@@ -13,6 +13,7 @@ export default function CreatePost() {
     description: "",
     price: "",
     postImgs: [],
+    paypalEmail: "",
     user: auth.getProfile().data._id
   });
 
@@ -27,6 +28,9 @@ export default function CreatePost() {
     }
     if (!formState.price || isNaN(formState.price)) {
         errors.price = 'Price is required and must be a number';
+    }
+    if (!formState.paypalEmail) {
+        errors.paypalEmail = 'Please enter your paypal email';
     }
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
@@ -44,13 +48,14 @@ export default function CreatePost() {
 
     if (validateForm()) {
     try {
-      const { title, description, price, postImgs, user } = formState;
+      const { title, description, price, paypalEmail, postImgs, user } = formState;
       const priceAsFloat = parseFloat(price);
       const { data } = await createPost({
         variables: {
           title,
           description,
           price: priceAsFloat,
+          paypalEmail,
           postImgs,
           user: auth.getProfile().data._id
         }
@@ -119,6 +124,22 @@ export default function CreatePost() {
                 />
                 {formErrors.description && <p className="text-xs text-error">{formErrors.description}</p>}
               </div>
+
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Paypal Email</span>
+                </label>
+                <input
+                type="email"
+                placeholder="Paypal Email"
+                className={`input input-bordered ${formErrors.paypalEmail ? 'input-error' : ''}`}
+                name="paypalEmail"
+                value={formState.paypalEmail}
+                onChange={handleChange}
+                />
+                {formErrors.paypalEmail && <p className="text-xs text-error">{formErrors.paypalEmail}</p>}
+              </div>
+
               <div className="input-file">
               <FileBase64
                 type="file"
@@ -128,6 +149,7 @@ export default function CreatePost() {
                     title: formState.title,
                     description: formState.description,
                     price: formState.price,
+                    paypalEmail: formState.paypalEmail,
                     postImgs: base64,
                     user: auth.getProfile().data._id
                   })

@@ -49,6 +49,7 @@ export default function Item() {
       });
   };
 
+  const sendMoneyEmail = post.paypalEmail
   const amount = post.price;
   const currency = "USD";
   const style = {
@@ -145,7 +146,10 @@ export default function Item() {
                               amount: {
                                 currency_code: currency,
                                 value: amount
-                              }
+                              },
+                              payee: {
+                                email_address: sendMoneyEmail,
+                              },
                             }
                           ]
                         });

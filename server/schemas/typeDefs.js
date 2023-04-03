@@ -29,6 +29,7 @@ const typeDefs = gql`
     description: String!
     price: Float!
     postImgs: [String]!
+    paypalEmail: String!
     createdAt: String!
     tags: [Tag]!
     comments: [Comment]!
@@ -100,6 +101,7 @@ const typeDefs = gql`
       title: String!
       description: String!
       price: Float!
+      paypalEmail: String!
       postImgs: [String]!
       tags: [ID!]
     ): Post

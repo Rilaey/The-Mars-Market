@@ -16,6 +16,10 @@ const postSchema = new Schema({
     type: Number,
     required: "Post Must Have Price!"
   },
+  paypalEmail: {
+    type: String,
+    required: true
+  },
   // need to figure how images work
   postImgs: {
     type: [String],
