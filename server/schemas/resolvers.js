@@ -195,13 +195,14 @@ const resolvers = {
         };
       }
     },
-    createPost: async (parent, { title, description, price, tags, postImgs, user }, context) => {
+    createPost: async (parent, { title, description, price, tags, postImgs, paypalEmail, user }, context) => {
       const post = await Post.create({
         title,
         description,
         price,
         tags,
         postImgs,
+        paypalEmail,
         user
       });
 

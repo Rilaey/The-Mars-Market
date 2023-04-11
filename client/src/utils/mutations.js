@@ -112,6 +112,7 @@ export const CREATE_POST = gql`
     $title: String!
     $description: String!
     $price: Float!
+    $paypalEmail: String!
     $postImgs: [String]!
   ) {
     createPost(
@@ -119,19 +120,22 @@ export const CREATE_POST = gql`
       title: $title
       description: $description
       price: $price
+      paypalEmail: $paypalEmail
       postImgs: $postImgs
     ) {
-      user {
-        _id
-        phoneNumber
-        email
-        username
-      }
       _id
       title
-      description
       price
+      description
+      paypalEmail
       postImgs
+      user {
+        _id
+        firstName
+        lastName
+        email
+        phoneNumber
+      }
     }
   }
 `;

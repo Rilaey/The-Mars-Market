@@ -49,6 +49,7 @@ export default function Item() {
       });
   };
 
+  const sendMoneyEmail = post.paypalEmail
   const amount = post.price;
   const currency = "USD";
   const style = {
@@ -142,11 +143,13 @@ export default function Item() {
                         return actions.order.create({
                           purchase_units: [
                             {
-                              description: post.description,
                               amount: {
                                 currency_code: currency,
                                 value: amount
-                              }
+                              },
+                              payee: {
+                                email_address: sendMoneyEmail,
+                              },
                             }
                           ]
                         });
